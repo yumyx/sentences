@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function getAnchorRange (event) {
+        var range;
+        if (event.rangeParent && document.createRange) { // Firefox
+            range = document.createRange();
+            range.setStart(event.rangeParent, event.rangeOffset);
+            range.setEnd(event.rangeParent, event.rangeOffset);
+            return range;
+        } else if (document.caretRangeFromPoint) { // Webkit
+            range = document.caretRangeFromPoint(event.clientX, event.clientY);
+            //n=range.startContainer.textContent.toString();
+            //alert(n);
+
+            return range;
+        } else if (document.caretPositionFromPoint) { // Firefox for events without rangeParent
+            range = document.caretPositionFromPoint(event.clientX, event.clientY);
+            return range;
+        }
+        return 0;
+    }
+
+
+    function getWord(event) {
+        var range=  getAnchorRange (event);
+
+
+        var off= range.startOffset;
+
+        var start=range.startContainer;
+        start.nextSibling;
+       //var id=range.getno
+        start.previousSibling
+
+
+
+        var text=range.startContainer.textContent.toString();
+
+
+
+
+
+        return findWord2(start,off,0);
+
+
+    }
+
+
+
+
+function getPrefix(start)
+{
+
+    var wd="";
+    var pre=  start.previousSibling;
+    if(pre==null) {
+        var par = start.parentElement;//
+        pre = par.previousSibling;// previousSibling
+
+        if(pre==null)
+            return wd;
+    }
+
+
+    var preStr=findWord2(pre,-1,-1);
+    if(preStr==null)
+        return wd;
+
+        wd=preStr;
+
+
+    return wd;
+
+}
+
+
+    function findWord2(start, ch,dir) {
+
+        var str=start.textContent.toString();
+        if(ch==-1)
+            ch=str.length-1;
+
+
+        var wlen=0;
+        var starti=0;
+        var wd=null;
+
+
+        for(var i=0;i<str.length;++i) {
+            var c=  str.charAt(i);
+            if((c>='a' && c<='z')|| (c>='A' && c<='Z'))
+            {
+                if(wlen==0) {
+                    if(i>ch)
+                        return wd;
+                    starti = i;
+                }
+
+                ++wlen;
+            }
+            //test00000Ducklings are so cute when they walk.
+            //01234567890123456789
+            else
+            {
+               // if(wlen>0 && i>ch)
+                if(i>=ch)
+                {
+                    if(wlen<=0 || i==ch )
+                        return wd;
+
+                    wd=str.substring(starti,i,1);
+
+                    if(starti==0 &&(dir==0 || dir==-1) )
+                    {
+                      //  start.nextSibling;
+
+                        wd=getPrefix(start)+wd;
+
+
+                    }
+
+
+                    return wd;
+
+                }
+
+
+                wlen=0;
+
+            }
+
+
+
+
+        }
+
+        if(wlen>0 && i>ch) {
+            wd = str.substring(starti, i);
+
+            if(starti==0 &&(dir==0 || dir==-1))
+            {
+                wd=getPrefix(start)+wd;
+
+            }
+
+
+            if(dir==1 || dir==0) {
+
+                var next = start.nextSibling;
+                if(next==null) {
+                    var par = start.parentElement;
+                    next = par.nextSibling;
+                }
+
+
+                if (next != null) {
+                    var nextstr = findWord2(next, 0, 1);
+                    if(nextstr!=null)
+                        wd+=nextstr;
+                }
+            }
+
+
+        }
+        return wd;
+
+    }
+
+
+
+
+
+
+
+var node;
+   function onClkWd(pthis,event)
+    {
+
+      alert( getWord(event));
+
+
+
+     //   alert("鼠标指针移到了 " + node.innerHTML );
+     //  var pos= getAnchorOffset(event);
+    }
+    function getRelatedElement(event) {
+       // alert("鼠标指针移到了 " + event.relatedTarget.innerHTML + " 元素");
+         node =event.relatedTarget;
+        if(node.nodeType==3)
+            alert("鼠标指针移到了 " + event.relatedTarget.innerHTML + " 元素");
+
+    }
+</script>
+
+
+<span onclick="onClkWd(this,event)">The mother duck was followed by her baby<span  style="background-color: #ebed15 "> duckli</span>ngs.</span><br>
+
+<span onclick="onClkWd(this,event)">The mother duck was followed by her baby <span  style="background-color: #ebed15 ">duckli</span>ngs.</span><br>
+
+<span onclick="onClkWd(this,event)">The mother duck was followed by her baby du<span  style="background-color: #ebed15 ">ckli</span>ngs.</span><br>
+
+<span onclick="onClkWd(this,event)"  onmouseover="getRelatedElement(event)"> <span> test</span>00000Ducklings are so cute when they walk.</span>
+<br>
+<button onclick="myFunction()">试一下</button>
+<br>
+<p id="demo">点击按钮来获得首个项目的下一个同胞的 id。</p>
+
+<script>
+    function myFunction()
+    {
+        var x=document.getElementById("demo");
+        x.innerHTML=document.getElementById("item1").nextSibling;
+    }
+</script>
+
+
+
+<script type="text/javascript">
+    function TestBoundary () {
+        var mySpan = document.getElementById ("mySpan");
+        if (document.createRange) {     // all browsers, except IE before version 9
+            var myRange = document.createRange ();
+
+            myRange.selectNodeContents (mySpan);
+            alert ("The range starts at the " + myRange.startOffset + ". child of the " + myRange.startContainer.tagName + " element.");
+            alert ("The range ends at the " + myRange.endOffset + ". child of the " + myRange.endContainer.tagName + " element.");
+
+            var textNode = mySpan.firstChild;
+            myRange.selectNodeContents (textNode);
+            alert ("The range starts at the " + myRange.startOffset + ". character position of the textNode element.");
+            alert ("The range ends at the " + myRange.endOffset + ". character position of the textNode element.");
+        }
+        else {
+            alert ("Your browser does not support this example!");
+        }
+    }
+</script>
+</head>
+<body>
+<button onclick="TestBoundary ()">Test the boundary positions of a range!</button>
+<br /><br />
+<span id="mySpan">The length of this text is 30.</span>
+
+</body>
+</html>

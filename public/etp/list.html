@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+
+
+
+<body onmousedown="onclickBody()">
+
+<style>
+    #index{
+        width:15%;
+        hight:100%;
+        border33:1px #333 solid;
+        margin:5px;
+        float:left;
+        left: 80%;
+        top: 360px;
+        position:absolute;
+        display: none;
+
+    }
+    .my_img_href
+    {
+        color:black;
+        text-decoration:none;
+    }
+
+    #container44 {
+        background-color: #FFFFFF;
+
+    }
+    #container{
+       padding-bottom:2000px;
+        width:100%;
+        hight:100%;
+        border333:1px #333 solid;
+        margin:5px;
+        position:absolute;
+
+        float:left;
+
+
+
+
+
+        border: 3px solid #73AD21;
+
+    }
+
+    textarea{
+        height22:25px;
+        font-size:18px;
+    }
+
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+
+     div.static {
+         width:100%;
+
+         position333: -webkit-sticky; /* Safari */
+         position333: sticky;
+         top: 0;
+
+         background-color: #cae8ca;
+         border: 2px solid #4CAF50;
+     }
+
+
+    #myProgress {
+        width: 100%;
+        background-color: #ddd;
+    }
+
+    #myBar {
+        width: 1%;
+        height: 5px;
+        background-color: blue;
+    }
+
+    table.img3x3 {
+        table-layout: fixed;
+        width: 100%;
+        height: 540px;
+        font-size:150%;
+    }
+
+    table.img3x3 tr {width: 320px;
+        height: 180px; }
+
+
+    table.img3x3 tr td span img {width: 320px;
+        height: 180px; }
+
+</style>
+
+
+
+<script src="/dic/Blog_files/edit.js?v=0.99" ></script>
+<script src="/js/highligh.js?ver=1.3"> </script>
+<script src="/js/auplayer.js?ver=5.53"></script>
+<script src="/js/checkWriteWord.js?ver=0.2"></script>
+
+
+<div class="static">
+<img style="display: none;"  id="gotoExtern"  alt="gotoExtern" width="0" height="0">
+
+
+
+<span id="exampleSpan"  style="height:25px;font-size:26px;display: none;" >
+    <span id="myId" onclick=" iniTest()">[-]</span>
+<button style="height:25px;font-size:16px;"    onclick="goToExample(-1)" >Prev</button>
+<button style="height:25px;font-size:16px;"    onclick="goToExample(0)" >-------</button>
+    <button style="height:25px;font-size:16px;"    onclick="goToExample(1)" >Next</button>
+<button style="height:25px;font-size:16px;"    onclick="checkExampleNext()" >Check&Next</button>
+
+<br>
+    <span  style="display: none;" id="historyExamplePre" onclick="onClkhistory(this,event)">[]</span>
+<span id="historyExample" onclick="onClkhistory(this,event)">history</span><span id="trans2" onclick="translatex2(this,-1)">汉</span><br>
+<span id="examplePre" onclick="onClkhistory(this,event)">[]</span><span id="trans1" onclick="translatex2(this,0)">汉3</span><br>
+<span id="example" onclick="onClkhistory(this,event)">play example</span><br>
+
+
+        <table  style="display: none;" class="img3x3"  >
+
+        <tr>
+            <td  onclick="return clk(0);"><span id="imgx0"></span></td>
+            <td  onclick="return clk(1);"><span id="imgx1"></span></td>
+            <td  onclick="return clk(2);"><span id="imgx2"></span></td>
+        </tr>
+        <tr>
+            <td  onclick="return clk(3);"><span id="imgx3"></span></td>
+            <td  onclick="return clk(4);"><span id="imgx4"></span></td>
+            <td  onclick="return clk(5);"><span id="imgx5"></span></td>
+        </tr>
+
+        <tr>
+            <td  onclick="return clk(6);"><span id="imgx6"></span></td>
+            <td  onclick="return clk(7);"><span id="imgx7"></span></td>
+            <td  onclick="return clk(8);"><span id="imgx8"></span></td>
+        </tr>
+
+    </table>
+
+
+    </span>
+
+
+    <span id="span45" style="margin-left:100px;width:18px;overflow:hidden;"><select id="SearchWord3kSel" style="height:38px;font-size:26px;width:280px;margin-left:-100px" onchange="onChangSel(this)">
+
+ </select></span><input onkeyup="return onkeyupsearchWord(event)"  id="searchWord"  style="height:25px;font-size:26px;width:230px;position:absolute;left:0px;" type="text" size="20">
+    <button style="height:25px;font-size:16px;" onclick="onseach()">&nbsp;&nbsp;search&nbsp;&nbsp;</button>
+
+    <button style="height:25px;font-size:16px;" onclick="onseach2('http://dict.youdao.com/w/')">you</button>
+    <button style="height:25px;font-size:16px;" onclick="open_window('https://www.ldoceonline.com/dictionary/')">long</button>
+
+    <button style="height:25px;font-size:16px;" onclick="onPlayWord()">play</button>
+    <input type="button" id="writeMode"  onclick="readmod(this)" value="read" />
+    <button onclick="onClksplitMp3()">Split</button>
+    <button onclick="onClkSwitchTable()">Switch</button>
+
+
+    <table width="98%" >
+        <tr>
+            <td  onmousedown="on_clk_img()"   style="width: 200px;"> <a href="javascript:;" ><img   id="myImg"  alt="The Pulpit Rock" width="200" height="150"></a></td>
+            <td  ><a href='javascript:;'    class='my_img_href' >
+
+                <span style="height:15px;font-size:16px;"  id='cn_desc'></span>
+                <span style="height:15px;font-size:16px;" onmousedown="onClkWd(this,event)" id='desc'></span><br>
+                <span style="height:25px;font-size:26px;" id="sentense"></span><button id="checkWriten" style="height:25px;font-size:16px;"onclick="oncheckWriten(this)">check</button>
+                <input id="username" onclick="set_username(this)" type="button"  value="none" >
+                <script src="/js/set_username.js?v=0.8"> </script>
+
+                <input id="set_langue" onclick="set_cn_disp(this)" type="button"  value="_" >
+
+
+                <input  onclick="set_continue_reading(this)" type="button"  value="con" >
+
+
+
+
+
+
+            </a></td>
+           <td onmousedown="backparent()">
+               <a href="javascript:;" >
+
+             <img    id="rightImg"  alt="back to test" width="150" height="100">
+               </a>
+
+           </td>
+
+        </tr>
+    </table>
+
+
+
+
+
+
+
+<script>
+    var example=document.getElementById("example");
+    var examplePre=document.getElementById("examplePre");
+    var historyExample=document.getElementById("historyExample");
+    var historyExamplePre=document.getElementById("historyExamplePre");
+    var exampleSpan=document.getElementById("exampleSpan");
+    var trans2=document.getElementById("trans2");
+    var trans1=document.getElementById("trans1");
+
+
+    var list_cn_text_style="style='display:none;'";
+    // var list_cn_text_style="";
+    var set_langue=   document.getElementById("set_langue");
+
+
+
+
+    function set_cn_disp(that) {
+
+
+
+        if(that.value=="_")
+        {
+            that.value="汉";
+            list_cn_text_style="";
+            desc.m_cn_desc.style.display=""
+        }
+        else
+        {
+            that.value="_";
+            list_cn_text_style="style='display:none;'";
+            desc.m_cn_desc.style.display="none";
+
+
+        }
+
+
+
+
+        // onseach();
+        _onseach2(20);
+
+
+    }
+
+    function set_langue_switch() {
+        set_cn_disp(set_langue);
+
+    }
+
+
+    var continue_reading=0;
+
+    function set_continue_reading(that) {
+
+        if(that.value=="break")
+        {
+            that.value="con";
+            continue_reading=0;
+        }
+        else
+        {
+            that.value="break";
+            continue_reading=1;
+
+
+        }
+
+
+
+    }
+
+
+
+
+    function checkExampleNext()
+    {
+
+        var pthis=example;
+
+        var h=pthis.sens[pthis.cur][1];
+        pthis.innerHTML = "[" + h.maxf + "][" + h.maxword + "]" + h.txt;
+
+
+            auPlayer.play(pthis.mp3,function () {
+                _checkExampleNext(pthis)
+            });
+
+
+    }
+
+function markSentence(s,func,callback)
+{
+
+    var url="/enexamples/result?sid="+s.id+"&tid="+gtid+"&func="+func+"&fmax="+s.maxf+"&fmax2="+s.sc;
+
+
+    GetJonsonCallBack(url, callback);
+}
+    function _checkExampleNext(pthis)
+    {
+
+
+        var sens=pthis.sens;
+        var cur=pthis.cur;
+        var s=sens[cur][1];
+        s.id;
+        s.maxf;
+        s.maxf2;
+        var rec=sens[cur][2];
+
+
+
+
+
+        var func="fail";
+        if(pthis.readn==0)
+            func="ok";
+
+
+        //{"sid":111,"tid":222,"re":"ok","ex":{"state":2,"try":24,"ok":5,"id":6,"sid":111,"tid":222,"fail":19,"fmax":3333,"fmax2":4444,"created_at":"2019-06-04T11:26:43.074Z","updated_at":"2019-06-04T11:31:18.987Z"}}
+        //var url="/enexamples/result?sid="+s.id+"&tid="+tid+"&func="+func+"&fmax="+s.maxf+"&fmax2="+s.sc;
+
+        markSentence(s,func,function (re){
+            var rec2=re.ex;
+            sens[cur][2]=rec2;
+
+
+          //  pthis.innerHTML=""+s.state+"/"+s.try;
+
+        });
+
+
+
+
+        goToExample(1);
+
+    }
+
+
+    function translatex2(pTranThis,dir)
+    {
+        var pthis=example;
+        example.state="pause";
+        var sens=pthis.sens;
+        var cur;
+        if(dir==0)
+         cur=pthis.cur;
+        else
+            cur=pthis.history;
+
+        var s=sens[cur][1];
+
+        tranExampleBySen(pTranThis,s)
+    }
+
+   function goToExample(stepx)
+   {
+      var pthis=example;
+
+      var step=stepx;
+      if(step==null)
+          step=0;
+
+
+       if(stepx==null)
+       {
+           pthis.cur=0;
+           pthis.history=-1;
+           pthis.step = 1;
+       }
+
+     else {
+           var cur = pthis.cur + step;
+           if (cur < 0)
+               cur = 0;
+           else if (cur >= pthis.sens.length) {
+               cur = pthis.sens.length - 1;
+           }
+
+           if (step == 0) {
+               ++pthis.readn;
+           }
+           else {
+               pthis.readn = 0;
+           }
+
+
+           pthis.history = pthis.cur;
+           pthis.cur = cur;
+           pthis.step = step;
+       }
+
+
+
+
+
+       pthis.state="play"
+
+       showExampleArray(pthis);
+       showExample3X3(pthis);
+
+   }
+
+
+   function playExample(sid,callback)
+   {
+       var url="https://audio.tatoeba.org/sentences/eng/"+sid+".mp3";
+
+
+               auPlayer.play(url, callback) ;
+   }
+
+
+    function getSentenseHtml(cur,sens,istext)
+    {
+        var s=sens[cur][1];
+
+        var entxt="";
+        if(istext)
+            entxt=s.txt;
+
+
+        //{"id":702705,"sid":3183509,"tid":1,"try":1,"ok":0,"fail":1,"fmax":1700,"fmax2":780,
+        // "created_at":"2019-06-05T10:02:18.778Z","updated_at":"2019-06-06T01:42:02.044Z","state":0}]]}
+        var rec=sens[cur][2];
+        var state="-";
+        var tryx="-"
+        if(rec!=null)
+        {
+            state= rec.state;
+            tryx=rec.try;
+        }
+
+
+        return ""+cur+"/"+sens.length+"[" + s.maxf + "][" + s.maxword + "]["+state+"/"+tryx+"]"+entxt;
+
+    }
+
+
+    function setSentenseHtml( pre,senBody,cur,sens,istext)
+    {
+        var s=sens[cur][1];
+
+        var entxt="----------";
+        if(istext)
+            entxt=s.txt;
+
+
+        //{"id":702705,"sid":3183509,"tid":1,"try":1,"ok":0,"fail":1,"fmax":1700,"fmax2":780,
+        // "created_at":"2019-06-05T10:02:18.778Z","updated_at":"2019-06-06T01:42:02.044Z","state":0}]]}
+        var rec=sens[cur][2];
+        var state="-";
+        var tryx="-"
+        if(rec!=null)
+        {
+            state= rec.state;
+            tryx=rec.try;
+        }
+
+        pre.innerHTML=""+cur+"/"+sens.length+"[" + s.maxf + "][" + s.maxword + "]["+state+"/"+tryx+"]";
+
+        senBody.innerHTML=entxt;
+
+        return ;
+
+    }
+
+
+    function showExampleArray(pthis)
+    {
+
+
+        var sens=pthis.sens;
+        var cur=pthis.cur;
+
+
+        if(! pthis.state=="play")
+            return;
+
+
+        if(cur>= sens.length)
+            return;
+
+        var s=sens[cur][1];
+        //{"sens":[[5851176,
+        // {"id":5851176,"txt":"This is highly recommended.\n",
+        // "maxf":2000,"maxword":"recommend","maxf2":1816,"maxword2":"highly"}],
+        // [17091,{"id":17091,"txt":"Your question is not relevant to the subject.\n","maxf":2001,"maxword":"relevant","maxf2":1534,"maxword2":"subject"}]]}
+        if( pthis.cur== pthis.history)
+            setSentenseHtml(examplePre,example, cur,sens,true);
+        else
+        {
+           // pthis.innerHTML = "[" + s.maxf + "][" + s.maxword + "]" + s.txt;
+            if(pthis.history >=0) {
+                var h=sens[pthis.history][1];
+                //historyExample.innerHTML = getSentenseHtml(pthis.history,sens,true);
+                setSentenseHtml(historyExamplePre,historyExample, pthis.history,sens,true);
+                trans2.innerHTML=trans1.innerHTML;
+
+                sentens_table2.innerHTML="";
+                sentens_table.innerHTML="";
+            }
+
+
+           setSentenseHtml(examplePre,example, cur,sens,false);
+
+           // pthis.innerHTML =getsen("[" + s.maxf + "][" + s.maxword + "]" + s.txt,0);
+            trans1.innerHTML = "汉";
+
+
+            var next=cur+1;
+            var s2=sens[next][1];
+            auPlayer.preload("https://audio.tatoeba.org/sentences/eng/"+s2.id+".mp3");
+            loadWord(s2.maxword);
+        }
+
+
+
+        var url="https://audio.tatoeba.org/sentences/eng/"+s.id+".mp3";
+
+     //  playWord("car");
+
+        //if(next<sens.length && (pthis.step>0))
+
+
+        if(false)
+        {
+
+            playWordx(s.maxword, function () {
+                if ( pthis.state != "play")
+                    return;
+                auPlayer.play(url, function (pau) {
+                    if ( pthis.state != "play")
+                    return;
+
+                       var t=pau.aup.currentTime;
+
+                    setTimeout(function (){
+                        if (pthis.state != "play")
+                            return;
+
+                        //pthis.cur = next;
+                        //showExampleArray(pthis);
+                        goToExample(pthis.step);
+
+                    }, t*1000+500);
+
+
+
+                });
+
+            });
+
+        }
+        else
+
+            pthis.mp3=url;
+
+            playWordx(s.maxword, function () {
+            auPlayer.play(url,null)});
+
+        //auPlayer.preload
+
+
+        return  s.txt;
+
+    }
+
+
+
+
+
+
+
+    function showExample(pthis) {
+
+
+        var url="/enexamples/get.json?tid="+gtid;
+        var sql=gRequest.sql
+
+        if(sql!=null)
+        {
+            if(sql=="")
+                sql="SELECT  *   FROM enexamples  where tid="+gtid+"  and try>0 and state<1 AND (updated_at <DATETIME('now','-12 hour'))  ORDER BY state ,fmax,fmax2  limit 50 "
+
+            url+="&sql="+encodeURIComponent(sql);
+
+        }
+        else {
+
+
+
+
+            var par = "&word=10";
+            if (gRequest.fmax != null) {
+                par = "&word=" + gRequest.fmax;
+                exampleSpan.style.display = "";
+            }
+
+            url = url + par;
+
+            par = "&len=50";
+            if (gRequest.len != null)
+                par = "&len=" + gRequest.len;
+
+            url = url + par;
+        }
+
+
+        GetJonsonCallBack(url, function (json) {
+            pthis.sens=json.sens;
+            pthis.cur=-1;
+            pthis.readn=0;
+            goToExample(null);
+        });
+    }
+
+
+
+    function gotoserach(wd)
+    {
+        searchWord.value=wd;
+        document.title=wd;
+
+        onseach();
+    }
+
+    function onClkhistory(pthis,e)
+    {
+        var word=getWord(e);
+        if(word!=null) {
+            playWordx(word, function ()
+            {gotoserach(word);});
+        }
+
+
+    }
+
+    function iniTest()
+    {
+
+        if( auPlayer ==null) {
+
+            auPlayer = new CauPlayers(1, 50);
+            //alert("new CauPlayers(1, 50)");
+        }
+        var pthis=example;
+        pthis.state="play";
+
+        showExample(pthis);
+    }
+
+
+    function onClkExample(pthis,e)
+    {
+
+
+
+
+
+
+        if(pthis.state==null) {
+            pthis.state="play";
+
+            showExample(pthis);
+        }
+        else
+        {
+
+                pthis.state="pause";
+            onClkhistory(pthis,e);
+
+               // onClkWd(this,event);
+
+
+
+
+
+        }
+    }
+
+
+
+
+</script>
+    <div id="myProgress">
+        <div id="myBar"></div>
+    </div>
+    <script>
+        function textclk()
+        {
+            move(3000,function (){
+                alert ("ok!!");
+            });
+        }
+
+        function move(ms,callback) {
+
+          var clkNum=gclkNum;
+
+
+            var elem = document.getElementById("myBar");
+            var width = 1;
+            var dt=ms/100;
+            var id = setInterval(frame, dt);
+            function frame() {
+
+                if(  clkNum!=gclkNum)
+                    width=100;
+
+
+                elem.style.width = width + '%';
+
+
+
+                if (width >= 100) {
+                    clearInterval(id);
+                    if(callback!=null)
+                        callback();
+
+                }
+                width++;
+            }
+        }
+    </script>
+</div>
+
+
+
+
+
+
+<div id="div_youdao">
+    <button id="backBut2"  style="height:25px;font-size:16px;"onclick="backlist()" >Back</button>
+    <iframe  id="youdao" name="youdao" scrolling="yes"   width="100%" height=1000 >
+        <p>Your browser does not support iframes.</p>
+    </iframe>
+</div>
+
+
+<div id="container44" >
+
+    <table width="99%"  style="font-size:26px;" id="sentens_table"></table>
+    <table width="99%"  style="font-size:26px;" id="sentens_table2"></table>
+
+
+    <table width="98%" >
+        <tr>
+
+            <td  >
+                <button style="height:25px;font-size:16px;" onclick="onseach()">&nbsp;&nbsp;search&nbsp;&nbsp;</button>
+                <button style="height:25px;font-size:16px;" onclick="_onseach(200)">&nbsp;&nbsp;search&nbsp;100&nbsp;</button>
+                <span  id="disName"  >name</span>
+                <p id='pron'  style="height:25px;font-size:26px;"></p>
+                <table id="wordlist"></table>
+
+
+                <button style="height:25px;font-size:16px;"onclick="onClksplitMp3()">Split Sen</button>
+                <button style="height:25px;font-size:16px;"onclick="onadd()">Add history</button>
+                <button style="height:25px;font-size:16px;"onclick="on_add_dic()">Add dic</button>
+                <button id="backBut"  style="height:25px;font-size:16px;"onclick="backparent()" >Back</button><br><br>
+                <button onclick="window.location.reload()">fresh</button>
+                <button onclick="auPlayer.reset()">reset audio palyer</button>
+                <button onclick="updateImg()">update Img</button>
+
+            </td>
+
+
+        </tr>
+
+    </table>
+
+
+
+
+</div>
+
+<pre555  id="server"></pre555>
+
+
+
+    <div style="display: none;" id="index">
+
+
+        <table id="historyWord">
+
+        </table>
+
+    </div>
+
+    <script>
+        log("get 707 line");
+
+        function hide_img(that) {
+            that.style.display = "none";
+            //alert("hide_img");
+
+        }
+
+        var gisExample=0;
+        var gtid=1;
+        var gautoLoad=null;
+        var gname="none";
+
+
+        var pron=document.getElementById("pron");
+        var gSens;
+        var gsen;
+
+        var disName=document.getElementById("disName");
+
+
+        function set_pron(re_pron)
+        {
+
+            if(re_pron==null)
+            {
+                pron.innerHTML="[]"
+                return;
+            }
+            var pr=re_pron.pron;
+
+            if(pr==null )
+                pr=re_pron;
+            else
+                pr=re_pron.word+"   "+re_pron.pron
+
+          //  disName.innerHTML=re_name;
+
+            pron.innerHTML=pr
+
+
+        }
+
+
+        function lookup_pron(wd)
+        {
+            GetJonsonCallBack("/search/pron?wd="+wd,set_pron);
+
+        }
+
+    function getJosonSearch(re)
+    {
+      //  if(re.example!=null)
+      //      re.sens=re.example.concat(re.sens);
+
+        gseni=-1;
+        gSens=re;
+
+        //sentens_table.innerHTML="<tr><td>finding .....</td></tr>";
+        var recs=re.records;
+        if(recs==null)
+            recs=re.sens;
+        var t2=_getJosonSearch(re.sens ,re.name,re.checkSens,recs);
+
+       //  t1=_getJosonSearch(re.example ,re.name);
+
+        sentens_table.innerHTML=t2;
+
+        set_pron(re.pron);
+
+        desc.set_m_cn_desc(re.cn_dic_sens);
+
+
+
+
+    }
+    var gExampleSens;
+
+
+        function setHightlingExample(no)
+        {
+
+            var tr=document.getElementById("gExampleSens_"+no);
+            if(tr==null)
+                return ;
+
+            onClkExampleTr(tr);
+        }
+
+
+        function playExamplybySeq(no ,continuePlay)
+        {
+                var clkNum= gclkNum;
+
+            setHightlingExample(no);
+
+            var s=gExampleSens[no][1];
+            var url="https://audio.tatoeba.org/sentences/eng/"+s.id+".mp3";
+
+
+            var next=no+1;
+
+
+
+
+            var json={keep: "keep" ,mp3: url ,senText   : s.txt,playmp3xxx : "play"};
+
+            sendtoTVJson(json);
+
+
+
+
+
+            if(next>=gExampleSens.length || (!continuePlay)) {
+                auPlayer.play(url, null);
+                return;
+            }
+
+          /*  auPlayer.play(url,function () {
+                playExamplybySeq(next,true);
+            } );
+            */
+            auPlayer.play(url, function (pau) {
+                if(  clkNum!=gclkNum)
+                    return;
+
+
+                var t=pau.aup.currentTime;
+.9
+                /*
+                setTimeout(function (){
+                    if(  clkNum!=gclkNum)
+                        return;
+                    playExamplybySeq(next,true);
+                }, t*1500+500);
+ */
+
+                move(t*1700+500,function (){
+                    if(  clkNum!=gclkNum)
+                        return;
+                    playExamplybySeq(next,true);
+                });
+            });
+
+
+
+            var s2=gExampleSens[next][1];
+            var url2="https://audio.tatoeba.org/sentences/eng/"+s2.id+".mp3";
+
+            auPlayer.preload(url2,null) ;
+
+
+
+        }
+
+
+        function  onClkExampleFre(no)
+        {
+            playExamplybySeq(no,false);
+        }
+
+
+
+        function  onClkState(pthis,no)
+        {
+            var s=gExampleSens[no][1];
+            //playExample(s.id,null);
+            var sid=s.id;
+
+            var path_id="/ex/mp3/"+sid%1000+"/"+sid;
+
+            add_history_test(path_id,pthis);
+
+
+            //var func="fail_lookup"; "ok"
+
+
+            //{"sid":111,"tid":222,"re":"ok","ex":{"state":2,"try":24,"ok":5,"id":6,"sid":111,"tid":222,"fail":19,"fmax":3333,"fmax2":4444,"created_at":"2019-06-04T11:26:43.074Z","updated_at":"2019-06-04T11:31:18.987Z"}}
+            //var url="/enexamples/result?sid="+s.id+"&tid="+tid+"&func="+func+"&fmax="+s.maxf+"&fmax2="+s.sc;
+
+
+
+        }
+
+
+        function tranExample(pthis,no)
+        {
+
+            var s=gExampleSens[no][1];
+            playExample(s.id,null);
+
+
+            tranExampleBySen(pthis ,s);
+
+
+        }
+
+
+        function tranExampleBySen(pthis,s)
+        {
+
+            var url="/words/translateCn?sen="+encodeURIComponent(s.txt);
+
+
+            GetJonsonCallBack(url, function (json) {
+                pthis.innerHTML= json.cn;
+            });
+
+
+        }
+
+
+
+        var ghightLightexaple=new HightLight();
+        function onClkExampleTr(pthis) {
+            ghightLightexaple.show(pthis);
+        }
+
+    function showExampleSentence(sens)
+    {
+        //var sens=re.sens;
+        gExampleSens=sens;
+
+        if(sens==null)
+            return "Can't find the word in the example";
+        var re="";
+        for(var i=0;i<sens.length;++i)
+        {
+            var tr="<tr id='gExampleSens_"+i+"' onmousedown='onClkExampleTr(this)'>";
+            var s=sens[i][1];
+            var rec=sens[i][2];
+
+            //{"id":702705,"sid":3183509,"tid":1,"try":1,"ok":0,"fail":1,"fmax":1700,"fmax2":780,
+            // "created_at":"2019-06-05T10:02:18.778Z","updated_at":"2019-06-06T01:42:02.044Z","state":0}]]}
+
+            //   {"id":30564,"path_id":"/ex/mp3/368/279368","state":1,"readn":0,"wrongn":0,"last":null,"created_at":"1919-06-09T03:53:20.805Z","updated_at":"2019-06-09T10:16:46.283Z","usename":"Jimmy","read_no":1,"turn":1,"random":null,"fav":null,"Reciten":0,"searchDate":null,"keyword":null,"wordlistenn":0,"hiskeyword":null,"wordtime":null,"readSenn":null,"lastword":null}]]}
+
+            var state="-";
+            var tryx="-"
+            if(rec!=null)
+            {
+               state= rec.state;
+               tryx=rec.read_no;
+            }
+
+            //var en_html=_showSentense(checkSens[i],"_check");
+            tr+="<td onmousedown=' playExamplybySeq("+i+",true);'><a href='javascript:;' class='my_img_href' >"+i+"</a></td>";
+            tr+="<td onmousedown='onClkExampleFre("+i+")'><a href='javascript:;' class='my_img_href' >"+s.maxf+"</a></td>";
+            tr+="<td onmousedown='onClkExampleFre("+i+")'><a href='javascript:;' class='my_img_href' >"+s.maxword+"</a></td>";
+            tr+="<td onmousedown='onClkExampleFre("+i+")'><a href='javascript:;' class='my_img_href' >"+s.maxword2+"</a></td>";
+            //tr+="<td>"+s.maxword+"</td>";
+            //tr+="<td >"+state+"</td>";
+            tr+="<td ><a onmousedown='onClkState(this,"+i+")' href='javascript:;' class='my_img_href' >"+state+"/"+tryx+"</a></td>";
+            //tr+="<td>"+tryx+"</td>";
+
+
+
+
+            //{"id":2892390,"txt":"Tom's prints were on the gun.\n","maxf":1577,"maxword":"print","maxf2":1477,"maxword2":"gun","wdn":7,"sc":759}
+            //var han="汉";
+            var td1="<td><a href='javascript:;' class='my_img_href' ><span onclick='onClkWd(this,event)'>"+getEnHtml(s.txt,searchWord.value)+"</span><span  onclick='tranExample(this,"+i+")'>汉</span></a></td>";
+            tr+=td1;
+
+            tr+="</tr>";
+            re+=tr;
+        }
+        return re;
+
+    }
+
+
+    function searchExample(wd,len)
+    {
+
+        wd=wd.trim();
+        wd=wd.toLowerCase();
+        sentens_table2.innerHTML="<tr><td>finding ....."+wd+"</td></tr>";
+        var url="/enexamples/get.json?word="+wd+"&tid="+gtid+"&len="+len;
+        GetJonsonCallBack(url, function (re) {
+            //wordlist.innerHTML= showWord(json)
+            //{"inputWord":"print","tid":1,"sens":[[2892390,]]}
+
+
+
+            sentens_table2.innerHTML= showExampleSentence(re.sens);
+
+
+
+        });
+    }
+
+
+       // searchExample("printed");
+
+    </script>
+
+
+
+<script src="/js/history.js?ver=9.59"></script>
+
+
+<script >
+
+
+    function onClkSwitchTable()
+    {
+        if(sentens_table==_sentens_table)
+        {
+            sentens_table= _sentens_table2;
+            sentens_table2= _sentens_table;
+        }
+
+            else {
+            sentens_table = _sentens_table;
+            sentens_table2 = _sentens_table2;
+        }
+        onseach();
+    }
+
+
+    var div_youdao=document.getElementById("div_youdao");
+    var youdao=document.getElementById("youdao");
+    var container=document.getElementById("container");
+    var index=document.getElementById("index");
+    var getTVWord=document.getElementById("getTVWord");
+
+
+
+
+    //div_youdao.style.display = "block";
+    div_youdao.style.display = "none" ;
+
+
+    function open_window(url) {
+        var wd = searchWord.value;
+        wd = wd.trim();
+
+        // http://dict.youdao.com/w/down
+         window.open(url+wd,"dic_window");
+    }
+
+
+    function seach_youdao(url) {
+
+        var  wd=searchWord.value;
+        wd=wd.trim();
+
+        youdao.src=url+wd;
+
+    }
+
+
+    function onseach2(url) {
+       // var  wd=searchWord.value;
+        //wd=wd.trim();
+
+        // http://dict.youdao.com/w/down
+       // window.open(url+wd);
+       // youdao.src=url+wd;
+        seach_youdao(url);
+        div_youdao.style.display = "" ;
+        container.style.display = "none" ;
+        index.style.display = "none" ;
+
+
+    }
+
+    function backlist() {
+
+        div_youdao.style.display = "none" ;
+        container.style.display = "" ;
+        index.style.display = "" ;
+    }
+
+
+    function splitCallback(senx) {
+        var sen=desc.m_sen;
+        //var player=pre_entext[1].player;
+        //player.src=senx.path_id+"_0.mp3";
+        //mp3State=2;
+        sen.audio=senx.audio;
+        desc.setDecp(sen);
+        //desc.set
+        //player.play();
+
+
+        //updateCnTxt();
+
+    }
+
+
+    function onClksplitMp3()
+    {
+
+
+        makeSplitMp3(desc.m_sen,splitCallback);
+
+    }
+
+    function updateImg() {
+
+        var src=searchWord.value;
+       var si=src.indexOf("data:image/jpeg;base64");
+       if(si!=0)
+       {
+           alert("illeage img :src="+src);
+           return;
+       }
+
+
+        var http = new XMLHttpRequest();
+
+        var form = new FormData();
+
+        http.onreadystatechange = function() {
+
+            if (this.readyState != 4)
+                return;
+
+            if (this.readyState == 4 && this.status == 200) {
+
+                // article_text.innerHTML =this.responseText;
+                alert(this.responseText);
+
+
+            }
+        }
+
+        // var midtime=(sub.range[0])
+
+
+
+        var dest=img.src
+        var ri=dest.indexOf("//");
+        ri=dest.indexOf("/",ri+2);
+        dest=dest.substring(ri);
+
+        //dest="/dic/4k/4/Unit-5/wordlist/27039xx.jpg"
+
+
+
+        img.src=src
+
+        form.append('dest', dest);
+        form.append('src', src);
+
+
+
+        http.open('POST', '/search/updateJpg');
+        http.send(form);
+
+
+
+    }
+
+    function getAnchorOffset (event) {
+        var range;
+        if (event.rangeParent && document.createRange) { // Firefox
+            range = document.createRange();
+            range.setStart(event.rangeParent, event.rangeOffset);
+            range.setEnd(event.rangeParent, event.rangeOffset);
+            return range.startOffset;
+        } else if (document.caretRangeFromPoint) { // Webkit
+            range = document.caretRangeFromPoint(event.clientX, event.clientY);
+            return range.startOffset;
+        } else if (document.caretPositionFromPoint) { // Firefox for events without rangeParent
+            range = document.caretPositionFromPoint(event.clientX, event.clientY);
+            return range.offset;
+        }
+        return 0;
+    }
+
+    function onClkWdDesc(txt,e) {
+        var pos=getAnchorOffset(e);
+        var text=txt.innerText;
+        var wd= findWord(text,pos);
+        //on_clk_key_wd(word);
+        playWord(wd);
+        searchWord.value=" "+wd;
+        //desc.lookupDic(wd);
+
+    }
+
+
+    function getAnchorRange (event) {
+        var range;
+        if (event.rangeParent && document.createRange) { // Firefox
+            range = document.createRange();
+            range.setStart(event.rangeParent, event.rangeOffset);
+            range.setEnd(event.rangeParent, event.rangeOffset);
+            return range;
+        } else if (document.caretRangeFromPoint) { // Webkit
+            range = document.caretRangeFromPoint(event.clientX, event.clientY);
+            //n=range.startContainer.textContent.toString();
+            //alert(n);
+
+            return range;
+        } else if (document.caretPositionFromPoint) { // Firefox for events without rangeParent
+            range = document.caretPositionFromPoint(event.clientX, event.clientY);
+            return range;
+        }
+        return 0;
+    }
+
+
+    function getWord(event) {
+        var range=  getAnchorRange (event);
+
+
+        var off= range.startOffset;
+
+        var start=range.startContainer;
+        start.nextSibling;
+        //var id=range.getno
+        start.previousSibling
+
+
+
+        var text=range.startContainer.textContent.toString();
+
+
+
+
+
+        return findWord2(start,off,0);
+
+
+    }
+
+
+
+
+    function getPrefix(start)
+    {
+
+        var wd="";
+        var pre=  start.previousSibling;
+        if(pre==null) {
+            var par = start.parentElement;//
+            pre = par.previousSibling;// previousSibling
+
+            if(pre==null)
+                return wd;
+        }
+
+
+        var preStr=findWord2(pre,-1,-1);
+        if(preStr==null)
+            return wd;
+
+        wd=preStr;
+
+
+        return wd;
+
+    }
+
+
+    function findWord2(start, ch,dir) {
+
+        var str=start.textContent.toString();
+        if(ch==-1)
+            ch=str.length-1;
+
+
+        var wlen=0;
+        var starti=0;
+        var wd=null;
+
+
+        for(var i=0;i<str.length;++i) {
+            var c=  str.charAt(i);
+            if((c>='a' && c<='z')|| (c>='A' && c<='Z'))
+            {
+                if(wlen==0) {
+                    if(i>ch)
+                        return wd;
+                    starti = i;
+                }
+
+                ++wlen;
+            }
+            //test00000Ducklings are so cute when they walk.
+            //01234567890123456789
+            else
+            {
+                // if(wlen>0 && i>ch)
+                if(i>=ch)
+                {
+                    if(wlen<=0 || i==ch )
+                        return wd;
+
+                    wd=str.substring(starti,i,1);
+
+                    if(starti==0 &&(dir==0 || dir==-1) )
+                    {
+                        //  start.nextSibling;
+
+                        wd=getPrefix(start)+wd;
+
+
+                    }
+
+
+                    return wd;
+
+                }
+
+
+                wlen=0;
+
+            }
+
+
+
+
+        }
+
+        if(wlen>0 && i>ch) {
+            wd = str.substring(starti, i);
+
+            if(starti==0 &&(dir==0 || dir==-1))
+            {
+                wd=getPrefix(start)+wd;
+
+            }
+
+
+            if(dir==1 || dir==0) {
+
+                var next = start.nextSibling;
+                if(next==null) {
+                    var par = start.parentElement;
+                    next = par.nextSibling;
+                }
+
+
+                if (next != null) {
+                    var nextstr = findWord2(next, 0, 1);
+                    if(nextstr!=null)
+                        wd+=nextstr;
+                }
+            }
+
+
+        }
+        return wd;
+
+    }
+
+    var wordlist=document.getElementById("wordlist");
+
+
+
+
+
+
+    function showWordx(wd) {
+
+
+        //var url = "/articles/open?path=" + encodeURI(path);
+
+        var url="/words/"+wd.toLowerCase()+".json";
+
+        GetJonsonCallBack(url, function (json) {
+            wordlist.innerHTML= showWord(json)
+        });
+    }
+
+
+
+    function onClkWd(txt,e) {
+       // var pos=getAnchorOffset(e);
+       // var text=txt.innerText;
+     //   var word= findWord(text,pos);
+        var word=getWord(e);
+        if(word==null)
+            desc.play();
+        else
+            on_clk_key_wd(word);
+
+
+
+
+
+    }
+
+
+
+
+
+    function on_click_word2(txt) {
+
+
+        //txt.focus();
+
+        var pend = txt.selectionEnd;
+        var pos=txt.selectionStart;
+
+        txt.blur();
+
+        alert("pend="+pend);
+
+
+
+
+        var text=txt.innerHTML;
+
+        var word= findWord(text,pos);
+        on_clk_key_wd(word);
+
+
+
+    }
+
+
+    function onSelWord2(n) {
+        _play_path_idx(n);
+        //onClkList(pthis);
+        _sendtoTV(0);
+
+    }
+
+    function on_clk_sen_tr(n) {
+
+        var pthis=document.getElementById("sen_"+n);
+        _play_path_idx(n);
+
+        onClkList(pthis);
+        _sendtoTV(0);
+
+      //  play_next(n+1);
+
+    }
+
+    function scroll_by_n(n ) {
+
+
+        var pthis=document.getElementById("sen_"+n);
+
+        if(pthis==null)
+            return;
+
+        pthis.scrollIntoView(false);
+    }
+
+    function show_en_cn_update_state (n)
+    {
+        var sen=gSens.sens[n];
+        show_en_cn(n);
+
+        if(sen.wordn>2)
+            updat_sentence_server(n);
+
+    }
+
+
+function show_en_cn(n)
+    {
+
+        var pthis=document.getElementById("sen_"+n);
+
+        if(pthis==null)
+            return;
+
+        var sen=gSens.sens[n];
+
+
+
+
+
+        sen.usename=gSens.name;
+        sen.show_english=1;
+        sen.list_cn_text_style="";
+
+        pthis.innerHTML=get_search_hmtl_tr(sen,n,gSens.checkSens,gSens.name,sen);
+
+
+
+
+    }
+
+var play_delay_timer=null;
+    var last_play_next_num=null;
+    function play_next(n) {
+
+
+        //clearTimeout
+       if (play_delay_timer!=null) {
+           clearTimeout(play_delay_timer);
+           play_delay_timer=null;
+
+       }
+
+        if(continue_reading==0 && last_play_next_num!=null && last_play_next_num!=n)
+        {
+            var last=gSens.sens[last_play_next_num];
+
+            if(last.play_count==1 &&  last.points==0 )
+            show_en_cn_update_state(last_play_next_num);
+        }
+
+
+
+        last_play_next_num=n;
+
+
+        var pthis=document.getElementById("sen_"+n);
+
+        if(pthis==null)
+            return;
+
+        var sen=gSens.sens[n];
+
+        ++sen.play_count;
+        if(sen.play_count==1  && continue_reading==1)
+          scroll_by_n(n+1);
+
+       //pthis.scrollIntoView(false);
+        onClkList(pthis);
+
+
+
+
+        if(sen.play_count==2)
+            show_en_cn_update_state(n);
+
+        play_sen_mp3_url(n,function () {
+
+            if(sen.play_count==1) {
+                if(continue_reading==1)
+                show_en_cn_update_state(n);
+                else
+                    show_en_cn(n) ;
+            }
+           if(continue_reading==1)
+                    play_next(n+1);
+            }
+
+        );
+
+
+
+
+    }
+
+
+
+    function updatSentences(sen,pthis) {
+
+        sen.dicword=searchWord.value;
+       var json= JSON.stringify(sen);
+
+
+
+
+        var http = new XMLHttpRequest();
+
+        var form = new FormData();
+
+        http.onreadystatechange = function() {
+
+            if (this.readyState != 4)
+                return;
+
+            if (this.readyState == 4 && this.status == 200) {
+
+                // article_text.innerHTML =this.responseText;
+                //alert(this.responseText);
+               var re= JSON.parse(this.responseText);
+
+                //alert(re.dicword);
+                pthis.innerHTML=re.dicword;
+
+
+
+
+
+            }
+        }
+
+
+
+
+       // form.append('dest', dest);
+
+
+        form.append('json', json);
+
+
+
+        http.open('POST', '/sentences/updateJson');
+        http.send(form);
+
+
+
+    }
+
+    function on_clk_dicword(n,pthis) {
+        updatSentences(gSens.sens[n],pthis);
+
+    }
+
+
+    function onClkCntext(pthis ,n) {
+
+        play_path_idx(n);
+        //pthis.innerHTML=gsen.cn_text;
+    pthis.firstChild.style.visibility="visible";
+
+    }
+
+    function on_add_dic() {
+
+        add_history_test(gsen.path_id,null);
+
+    }
+
+
+   //var gotoExtern= document.getElementById("gotoExtern");
+
+
+
+
+    var readState="read";
+
+    function readmod(pthis)
+    {
+       if(pthis.value=="read")
+           pthis.value="write";
+        else
+           pthis.value="read";
+
+
+        readState=pthis.value;
+
+    }
+
+
+
+
+
+
+    function _sendtoTV(isplaymps) {
+
+
+
+       var imgx=img.src;
+       var mp3=last_play_sen_url;
+
+       var sub=gsen.en_text;
+
+
+        //var json={mp4: play,sub : sub, subnext: subnext};
+
+        var imgurl = new URL(imgx);
+        var mp3url="http://"+imgurl.host+mp3;
+
+        var json;
+
+
+         //json={mp3: mp3url,img : imgx,sub : sub};
+
+        if(writeMode.value=="read")
+            json={keep:"keep",mp3: mp3url,img : imgx, senText   : sub,wordText : ""};
+        else {
+            json = {keep:"keep",mp3: mp3url, img: imgx, en_text: sub,senText   : "",wordText : ""};
+
+            //if (isplaymps==0)
+             //   json.playmp3 = "play";
+        }
+
+
+       /// if (isplaymps==1)
+         //   json.playmp3 = "play";
+
+
+
+
+
+        sendtoTVJson(json);
+
+
+
+
+
+        // xmlhttp=new XMLHttpRequest();
+
+        // xmlhttp.open("GET",url,true);
+        //xmlhttp.send();
+
+        // document.write(str2);   //输出%E4%BD%A0%E5%A5%BDjavascript
+
+    }
+
+
+
+    function sendtoTV()
+    {
+        _sendtoTV(-1);
+    }
+
+
+    function on_clk_img () {
+        // player.play();
+
+        var json;
+
+
+        //json={mp3: mp3url,img : imgx,sub : sub};
+
+
+
+
+        //sendtoTVJson({keep: "keep",playmp3 : "play"});
+        _sendtoTV(1);
+
+        auPlayer.play(last_play_sen_url);
+    }
+
+
+
+    function onkeyupsearchWord(e)
+    {
+        var keynum;
+        var keychar="";
+        var numcheck;
+
+        if(window.event) // IE
+        {
+            keynum = e.keyCode
+        }
+        else if(e.which) // Netscape/Firefox/Opera
+        {
+            keynum = e.which
+        }
+        var  wd=searchWord.value;
+
+        if(keynum==13) {
+            onseach();
+            return false;
+        }
+
+
+
+
+
+
+        //json={mp3: mp3url,img : imgx,sub : sub};
+
+        //json=;
+
+        sendtoTVJson({keep: "keep",wordText : wd});
+
+
+
+        //numcheck = /\d/
+
+        //var re=!numcheck.test(keychar);
+       //
+        return true;
+    }
+
+
+   function onPlayWord()
+   {
+       //playword()
+       playWord(searchWord.value.trim());
+
+   }
+
+
+    var is_path_view_in_url=0;
+
+    function  anlyzeURL() {
+
+        gname="none";
+        gisExample = 0;
+        gtid = 1;
+        gautoLoad=null;
+
+        if (gRequest.fmax != null) {
+
+            gisExample = 1;
+        }
+
+        if (gRequest.tid != null) {
+
+            gtid = parseInt(gRequest.tid);
+
+        }
+
+        if(gtid==1)
+            gname="David";
+        else if (gtid==2)
+            gname="Jimmy";
+
+        document.getElementById("myId").innerHTML="["+gname+"]";
+
+        if (gRequest.sql != null) {
+
+            gisExample = 1;
+        }
+
+
+        if (gisExample == 1)
+            exampleSpan.style.display = "";
+
+
+        if (gRequest.autoLoad != null) {
+
+
+            iniTest();
+            gautoLoad=gRequest.autoLoad;
+
+
+        }
+
+        if(gRequest.w!=null)
+        {
+            var wd=gRequest.w;
+            searchWord.value=wd;
+
+            if(wd.indexOf("@")>=0) {
+                is_path_view_in_url=1;
+                _onseach2(20);
+            }
+            else {
+
+                set_langue_switch();
+            }
+        }
+    }
+
+      var gclkNum=0;
+     function onclickBody()
+     {
+         ++gclkNum;
+         if( auPlayer ==null) {
+
+             auPlayer = new CauPlayers(1, 50);
+             //alert("new CauPlayers(1, 50)");
+         }
+
+     }
+
+
+
+
+</script>
+
+<script>
+    var imagesx=[
+        document.getElementById("imgx0"),document.getElementById("imgx1"),document.getElementById("imgx2"),document.getElementById("imgx3"),
+        document.getElementById("imgx4"),document.getElementById("imgx5"),document.getElementById("imgx6"),document.getElementById("imgx7"),
+        document.getElementById("imgx8")];
+
+
+var rightIndex=-1;
+
+    function showExample3X3(pthis)
+    {
+
+
+        var sens=pthis.sens;
+        var cur=pthis.cur;
+
+
+        if(! pthis.state=="play")
+            return;
+
+
+        if(cur>= sens.length)
+            return;
+
+        var s=sens[cur][1];
+        //{"sens":[[5851176,
+        // {"id":5851176,"txt":"This is highly recommended.\n",
+        // "maxf":2000,"maxword":"recommend","maxf2":1816,"maxword2":"highly"}],
+        // [17091,{"id":17091,"txt":"Your question is not relevant to the subject.\n","maxf":2001,"maxword":"relevant","maxf2":1534,"maxword2":"subject"}]]}
+
+        var slen=sens.length;
+
+        for(var i=0;i<imagesx.length;++i)
+       {
+           var j=cur+i+1;
+           j=j%slen;
+
+           imagesx[i].innerHTML=sens[j][1].txt;
+       }
+
+        rightIndex=Math.floor(Math.random() * 9);
+        imagesx[rightIndex].innerHTML=sens[cur][1].txt;
+
+        // returns a random integer from 0 to 9
+    }
+
+
+
+
+
+
+    //imagesx[pic].innerHTML=sens[senno].en_text;
+
+    anlyzeURL();
+
+
+    //var  SearchWord3k=document.getElementById("SearchWord3k");
+
+    onSelupdat(searchWord);
+
+
+
+
+
+</script>
+
+</body>
+</html>

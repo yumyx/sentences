@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+Senior Software DevOps Engineer
+Listed thirteen days ago13d ago
+at ninetwenty
+This is a Full Time job
+
+location: WellingtonWellingtonarea: Wellington CentralWellington Central
+classification: Information & Communication TechnologyInformation & Communication TechnologysubClassification: Developers/ProgrammersDevelopers/Programmers
+Must be an expert in your field of DevOps
+Mentoring and leadership of wider team
+Java\C#\Ruby\Python, IAM, JavaScript, Docker, Jenkins (CI \ build), git etc
+
+<script>
+
+
+function getWord222(){
+var word = window.getSelection?window.getSelection():document.selection.createRange().text;
+alert( word.toString() ) ;
+}
+
+
+
+function getWord() {
+    if (window.getSelection) {
+        var selection, range, node, start, end, text, rect, isFun, isText;
+
+        // 回调函数判断
+        isFun = !!window.JSInvoker && typeof window.JSInvoker.toggleWordTooltip === 'function';
+
+        // 文本判断
+        isText = function (text) {
+            return text && /^[a-zA-Z]+$/.test(text);
+        }
+
+        // 如果 tooltip 存在，需要先关闭
+        isFun && window.JSInvoker.toggleWordTooltip(false);
+
+        selection = window.getSelection();
+        range = selection.getRangeAt(0);
+        node = selection.anchorNode;
+        start = range.startOffset;
+        end = range.endOffset;
+        text = range.toString();
+
+        // <<<
+        while (!/^\s+/.test(text)) {
+            if (start === 0) {
+                range.setStart(node, start);
+                text = range.toString();
+                break;
+            } else {
+                start -= 1;
+                range.setStart(node, start);
+                text = range.toString();
+            }
+            if (!isText(text)) {
+                start += 1;
+                range.setStart(node, start);
+                text = range.toString();
+                break;
+            }
+        }
+        // >>>
+        while (!/\s+$/.test(text)) {
+            if (end === node.length) {
+                range.setEnd(node, end);
+                text = range.toString();
+                break;
+            } else {
+                end += 1;
+                range.setEnd(node, end);
+                text = range.toString();
+            }
+            if (!isText(text)) {
+                end -= 1;
+                range.setEnd(node, end);
+                text = range.toString();
+                break;
+            }
+        }
+
+        // 获取当前文档片段位置信息
+        rect = range.getBoundingClientRect();
+        text = text.trim();
+        if (isText(text) && isFun && rect) {
+            // 打开 tooltip
+            window.JSInvoker.toggleWordTooltip(true, text, rect.x, rect.y, rect.width, rect.height);
+        } else {
+            //alert(`Text: ${text}, isFun: ${isFun}, Rect: ${JSON.stringify(rect)}`);
+            alert(text);
+        }
+    } else {
+        // todo
+    }
+
+
+}
+
+
+function getWord111() {
+    if (window.getSelection) {
+        var selection, start, end, word;
+
+        selection = window.getSelection();
+
+        selection.modify('extend', 'backward', 'word');
+        start = selection.toString();
+
+        selection.modify('extend', 'forward', 'word');
+        end = selection.toString();
+
+        selection.modify('move', 'forward', 'character');
+
+        word = start + end;
+       // alert(`Selected Text: ${word}`);
+        alert(word);
+    } else {
+        // todo
+    }
+}
+
+document.body.addEventListener("click", getWord, false);
+
+
+</script>
+
+</body>
+</html>

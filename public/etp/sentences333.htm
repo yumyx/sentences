@@ -1,0 +1,3303 @@
+<!DOCTYPE html>
+<html>
+
+
+
+  <head>
+      <meta charset="UTF-8">
+    <title id="title">words</title>
+
+
+          <style type="text/css">
+              table.img3x3 {
+                  table-layout: fixed;
+                  width: 100%;
+                  height: 540px;
+                  font-size:150%;
+              }
+              .my_img_href
+              {
+                  color:black;
+                 text-decoration:none;
+              }
+
+              table.img3x3 tr {width: 320px;
+                  height: 180px; }
+
+
+              table.img3x3 tr td span img {width: 320px;
+                  height: 180px; }
+          </style>
+
+
+  </head>
+
+  <body id="body">
+
+  <link rel="stylesheet" type="text/css" id="links" />
+  <script type="text/javascript">
+
+     var sh= window.screen.height;
+     var sw=window.screen.width;
+     //alert("sh="+sh);
+
+
+     window.onload=function(){
+         var sc=document.getElementById("links");
+         var ver="1.5"
+         var css="./phone.css?v="+ver;
+
+         if(sh>601) //获取屏幕的的宽度
+         {
+             css="./pc.css?v="+ver;
+            if(sw>1024)
+             css="./tv.css?v="+ver;
+
+
+         }
+
+        // alert("sh="+sh+" sw="+sw+" css="+css);
+
+
+             sc.setAttribute("href",css);
+
+
+
+
+
+
+     }
+
+
+
+     if(sh<=601)
+      {
+          //alert("sh="+sh+"sw="+sw);
+      }
+// <link rel="stylesheet" type="text/css" href="./pc.css?v=0.7" media="screen and (max-width:800px)"/>
+      //<link rel="stylesheet" type="text/css" href="./phone888.css?v=1.3" media="screen and (min-width:801px)"/>
+
+     function addNewStyle(newStyle) {
+         var styleElement = document.getElementById('styles_js');
+
+         if (!styleElement) {
+             styleElement = document.createElement('style');
+             styleElement.type = 'text/css';
+             styleElement.id = 'styles_js';
+             document.getElementsByTagName('head')[0].appendChild(styleElement);
+         }
+
+         styleElement.appendChild(document.createTextNode(newStyle));
+     }
+
+    // addNewStyle('.box {height: 100px !important;}');
+
+  </script>
+
+
+
+
+
+
+<script src="/js/highligh.js?v=0.5"> </script>
+  <p id="dir" ></p>
+
+
+  <table  class="green" id="descrption" >
+ 
+  <tr>
+		<td  width="20%"><a href='javascript:;' class='my_img_href' ><span onclick="playx()" id="todayReadn" >none</span><span id="state"  class="none"></span>
+           <span   onmousedown="on_clk_loadsens(this,'?addNewWord=1',15000)" >N<span id="listen_score"></span></span><span   onmousedown="on_clk_loadsens(this,'',40000)" >V<span id="read_score"></span></span><span   onmousedown="on_clk_loadsens(this,'?addNewWord=read',40000)" >R</span>
+            <span  onmousedown='show_dir()'>L</span>
+            <span id="test_during"></span>/<span id="test_avg">-</span>
+        </a></td>
+		<td onclick="on_clk_cn_info()"><a href='javascript:;' class='my_img_href' >
+
+      <span   onclick="onshow_chinese()" ><span id="cn_text" ></span></span>
+             <span id="lastwordE"></span>
+            <input type="text" onclick="on_wd_ipnut()"  onblur="on_lost_wd_input()" style="height:25px;font-size:26px;"   size="9" name="fname" id="wd_input">
+            <span id="frequency">  </span>  <span id="hisword">hisword</span>
+
+
+
+
+            <img  onmousedown="bserach()" src="/img/baichizhan.jpg" height="30" width="40/">
+            <button id="" style="height:25px;font-size:16px;" onclick="onClksplitMp3()">S</button>
+            <input type="text" onclick="on_wd_ipnut()"  onblur="on_lost_wd_input()" style="height:25px;font-size:26px;"   size="1" name="fname" id="wd_input222">
+		
+        </a></td>
+
+  </tr>
+
+
+
+  <tr>
+      <td align="center"><a href='javascript:;' class='my_img_href' ><span id="state_cur2" onmousedown="go_word(0)" ></span><span  onmousedown="go_word(-1)"  >&lt;&lt;&lt;</span><span id="state_cur" onmousedown="go_word(0)" >
+      </span><span onmousedown="go_word(1)" >&gt;&gt;&gt;</span><span id="playerState">*</span></a></td>
+         <td  onclick="enplayx()" ><a href="javascript:;" class="my_img_href" ><a href='javascript:;' class='my_img_href' >
+             <span   onclick="onshow_enlish()" ></span><span id="answer_text"  ></span><span id="en_text" class="hidden2" ></span></a>
+		
+    	
+         </a></td>
+	
+    
+  </tr>
+</table>
+
+<div id="divPicTest">
+<audio autoplay333="autoplay" controls33="controls" id="player0" src33="http://localhost:3000/11/6/sa_11_4511_0_3_20150808152418.aac" ></audio>
+<audio autoplay333="autoplay" controls33="controls" id="player1" ></audio>
+
+
+
+
+        <script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+
+
+    <script>
+
+        var timeOutEvent=0;
+        $(function(){
+            $(".touchArea").on({
+                touchstart: function(e){
+                    timeOutEvent = setTimeout("longPress()",500);
+                    e.preventDefault();
+                },
+                touchmove: function(){
+                    clearTimeout(timeOutEvent);
+                    timeOutEvent = 0;
+                },
+                touchend: function(){
+                    clearTimeout(timeOutEvent);
+                    if(timeOutEvent!=0){
+                       // alert("你这是点击，不是长按");
+                    }
+                    return false;
+                }
+            })
+        });
+
+
+        function longPress(){
+            timeOutEvent = 0;
+           // alert("长按事件触发发");
+        }
+        //log("176 line goto auplayer");
+    </script>
+
+
+<div class="xttblog">
+
+
+    <table  class="img3x3"  >
+
+        <tr>
+            <td  onmousedown="return clk(0);"><a href="javascript:;" class="my_img_href" ><span id="imgx0"></span></a></td>
+            <td  onmousedown="return clk(1);"><a href="javascript:;" class="my_img_href" ><span id="imgx1"></span></a></td>
+            <td  onmousedown="return clk(2);"><a href="javascript:;" class="my_img_href" ><span id="imgx2"></span></a></td>
+        </tr>
+        <tr>
+            <td  onmousedown="return clk(3);"><a href="javascript:;" class="my_img_href" ><span id="imgx3"></span></a></td>
+            <td  onmousedown="return clk(4);"><a href="javascript:;" class="my_img_href" ><span id="imgx4"></span></a></td>
+            <td  onmousedown="return clk(5);"><a href="javascript:;" class="my_img_href" ><span id="imgx5"></span></a></td>
+        </tr>
+
+        <tr>
+            <td  onmousedown="return clk(6);"><a href="javascript:;" class="my_img_href" ><span id="imgx6"></span></a></td>
+            <td  onmousedown="return clk(7);"><a href="javascript:;" class="my_img_href" ><span id="imgx7"></span></a></td>
+            <td  onmousedown="return clk(8);"><a href="javascript:;" class="my_img_href" ><span id="imgx8"></span></a></td>
+        </tr>
+
+    </table>
+
+    <pre  id="server"></pre>
+
+</div>
+
+</div>
+  <script src="/js/make_input.js?v=0.91"> </script>
+
+<script src="/js/auplayer.js?v=5.26"></script>
+
+
+<script>
+   // var auPlayer = new CauPlayers(40);
+
+    var auPlayer=null;
+
+    // </td><td onclick="playx()">
+//<span   onclick="onshow_enlish()" ><span id="en_text" class="hidden2" ></span></span></span>
+
+
+   function FullScreen(ele) {
+       //var ele = document.documentElement;
+       if (ele .requestFullscreen) {
+           ele .requestFullscreen();
+       } else if (ele .mozRequestFullScreen) {
+           ele .mozRequestFullScreen();
+       } else if (ele .webkitRequestFullScreen) {
+           ele .webkitRequestFullScreen();
+       }
+   }
+   //退出全屏
+   function exitFullscreen() {
+       var de = document;
+       if (de.exitFullscreen) {
+           de.exitFullscreen();
+       } else if (de.mozCancelFullScreen) {
+           de.mozCancelFullScreen();
+       } else if (de.webkitCancelFullScreen) {
+           de.webkitCancelFullScreen();
+       }
+   }
+
+
+var todayReadn  =document.getElementById("todayReadn");
+var state_disp=document.getElementById("state");
+   var state_cur=document.getElementById("state_cur");
+
+   var listen_score=document.getElementById("listen_score");
+   var read_score=document.getElementById("read_score");
+
+var state_cur2=document.getElementById("state_cur2");
+var en_text=document.getElementById("en_text");
+var answer_text=document.getElementById("answer_text");
+var frequency=document.getElementById("frequency");
+var Ehisword=document.getElementById("hisword");
+var wd_input=document.getElementById("wd_input");
+var cn_text=document.getElementById("cn_text");
+var descrption=document.getElementById("descrption");
+
+   var test_during=document.getElementById("test_during");
+   var test_avg=document.getElementById("test_avg");
+
+
+var player=[document.getElementById("player0"),document.getElementById("player1")];
+
+//var serchPic=document.getElementById("serchPic");
+//var selmodeUrl=document.getElementById("selModeHref");
+
+var isNewWordsMode=0;
+var cur_state=0;
+
+function setSelmodeUrl() {
+    var se=window.location.search;
+    //alert(se.indexOf("addNewWord=1"));
+    if(se.indexOf("addNewWord=1")<0)
+        return ;
+    isNewWordsMode=1;
+    //alert(selmodeUrl.innerHTML);
+    selmodeUrl.innerHTML="<a  href='/etp/sentences.htm' >Review</a>";
+
+
+
+
+}
+
+//setSelmodeUrl();
+//var player = document.createElement("AUDIO");
+
+
+var mixmap;//=mixSen(sens);
+
+
+function getTodayReadnBack(readn) {
+    //alert("getTodayReadnBack readn.name=" +  readn.name);
+
+    todayReadn.innerHTML=readn.name.charAt(0)+":"+readn.todayReadn;
+}
+
+function testAudio(url) {
+    var p=document.createElement("AUDIO");
+    //var p=player[0];
+
+   // p.src="http://localhost:3000/16/22/sa_16_9927_0_2_20150808235014.aac";
+    //var wd="hello";
+   // p.src="http://dict.youdao.com/dictvoice?audio="+wd+"&type=1";
+   //p.src="http://localhost:3000/11/6/sa_11_4511_0_3_20150808152418.aac";
+  // p.src="/11/6/sa_11_4511_0_3_20150808152418.aac";
+    p.src=url;
+    p.load();
+
+    alert("testAudio play22 "+p.src);
+    p.play();
+
+}
+
+var sens=null;
+
+//var is_first_load_sentens=0;
+var last_loadsens_para="";
+
+
+   function loadSens3() {
+
+
+
+       if(pre_entext==null)
+       {
+           pre_entext=new Array();
+
+
+           for(var i=0;i<3;++i) {
+               pre_entext[i] = new Object();
+               pre_entext[i].init = pre_entext_init;
+
+               pre_entext[i].player = document.createElement("AUDIO");
+
+               pre_entext[i].player.onended = play_submit;
+               pre_entext[i].player.src="/js/your.mp3";
+               pre_entext[i].player.load();
+
+               pre_entext[i].init();
+
+               pre_entext[i].play=function (bc) {
+
+
+
+                   var p= this.player;
+
+                   if(tv_audio!=null)
+                   {
+                      p.src= this.pre_url;
+                      p.load();
+
+                   }
+
+                   if(p.currentTime!=0)
+                       p.currentTime=0;
+                   // alert("play_sen readyState="+p.readyState)
+                   //testAudio("/11/6/sa_11_4511_0_3_20150808152418.aac");
+                   // testAudio(p.src);
+                   //alert("curPayer");
+                   curPayer(p);
+                   //p.play();
+                   p.onended =function (){
+                       p.currentTime=0;
+                       if(bc!=null)
+                            bc();
+                       bc=null;
+                   }
+
+               };
+
+           }
+       }
+
+      // log("loadSens3 2");
+       if (auPlayer == null)
+           auPlayer = new CauPlayers(1,60);
+
+       //log("loadSens3 3");
+
+   }
+
+
+   var toal_time=0;
+   var toal_test_n=0;
+
+function loadSens2() {
+
+    if(auPlayer==null)
+        auPlayer = new CauPlayers(50);
+
+
+     toal_time=0;
+     toal_test_n=0;
+
+    auPlayer.reset();
+
+
+
+if( type_loadsens_para!=4) {
+    sens.sort(function (a, b) {
+        return a.frequency - b.frequency;
+    });
+    var s2 = [];
+    for (var i = 0; i < 7; ++i)
+        for (var j = 0; j < 7; ++j) {
+            var ij = i * 7 + j;
+            var ji = j * 7 + i;
+            s2[ij] = sens[ji];
+        }
+    s2[49] = sens[49];
+    sens = s2;
+
+    sens[50] = sens[0];
+
+
+    mixmap = mixSen(sens);
+}
+   init();
+
+    //show_test();
+
+    go_word(sentence_start);
+
+
+    //show_state();
+    update();
+
+   // ++is_first_load_sentens;
+
+}
+   var ghight_mode=new HightLight();
+   var watingTime=10000;
+   var body=document.getElementById("body");
+   function on_clk_loadsens(pthis,para,wt)
+   {
+       //FullScreen(body);
+
+       dir.style.display="None";
+
+       //test_play();
+
+       watingTime=wt;
+       //log("on_clk_loadsens333 ghight_mode="+ghight_mode);
+      // show_hight(pthis)
+       ghight_mode.show(pthis);
+       //log("on_clk_loadsens44");
+
+
+
+
+
+       _loadsens(para);
+   }
+
+function GetJonsonCallBackName(url,fun,name) {
+    if(name==null)
+        return GetJonsonCallBack(url,fun);
+    var fag="?";
+
+    if(url.indexOf("?")>=0)
+        fag="&";
+    log("GetJonsonCallBackName ");
+   return  GetJonsonCallBack(url+fag+"username="+name, fun);
+
+
+}
+
+function _loadsens(para) {
+
+    //log("_loadsens");
+    type_loadsens_para=0;
+    sentence_start=1;
+
+
+
+    if(para=="?addNewWord=read")
+        type_loadsens_para=3;
+    else if(para=="")
+        type_loadsens_para=2;
+   // log("_loadsens");
+
+    else if(para.indexOf("mp3=")>=0)
+    {
+        type_loadsens_para=4;
+        sentence_start=0;
+    }
+
+      loadSens3();
+    //log("after loadSens3");
+
+
+    last_loadsens_para=para;
+
+    if(para.indexOf("addNewWord=1")<0) {
+        document.title = 'Review Word';
+
+    }
+    else
+    document.title = 'New Word';
+
+    GetJonsonCallBackName("/test/getHowMannyRead",getTodayReadnBack,parms["name"]);
+
+
+    ++seq;
+    var url = "/test/index"+para;
+   log("tx:" + url );
+
+    GetJonsonCallBackName(url,function(json)
+        {
+
+            //log("_loadsens line 433");
+            sens = json;
+            /*
+            {
+  "id": 25166,
+  "word_level_id": null,
+  "tag_id": null,
+  "image_file": "25750.jpg",
+  "en_text": "Dad was engaged in sawing a piece of wood in half.",
+  "cn_text": "engage [enˈgeɪdʒ] v. To engage in something means to do it.",
+  "phrase": null,
+  "audio": "engage_0.mp3",
+  "right_n": null,
+  "t_right": null,
+  "t_wrong": null,
+  "created_at": "1918-12-12T02:02:17.677Z",
+  "updated_at": "2019-04-16T23:01:58.344Z",
+  "path_id": "/dic/4k/2/Unit-26/wordlist/engage",
+  "frequency": 3191,
+  "hardword": "engage",
+  "first_id": "/dic/4k/2/Unit-26/wordlist/engage",
+  "defkeyword": null,
+  "dicword": null,
+  "dicwordfrq": null,
+  "state": -1,
+  "readn": 0,
+  "wrongn": 0,
+  "last": null,
+  "usename": "Jimmy",
+  "read_no": 15,
+  "turn": 15,
+  "random": null,
+  "fav": null,
+  "Reciten": 0,
+  "searchDate": null,
+  "keyword": null,
+  "wordlistenn": 0,
+  "hiskeyword": null,
+  "wordtime": null,
+  "readSenn": null,
+  "lastword": "sawing"
+}
+
+            */
+
+
+            if(auPlayer!=null) {
+                loadSens2();
+            }
+            else
+                alert("load sense")
+
+        }
+    ,parms["name"]);
+    return ;
+
+
+
+
+
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        //if (this.readyState == 4 && this.status == 200) {
+        //   server.innerHTML +="rx:"+this.responseText;
+        //}
+
+        if (this.readyState != 4 || this.status != 200)
+            return;
+
+
+
+        sens = JSON.parse(this.responseText);
+
+
+        if(auPlayer!=null) {
+            loadSens2();
+        }
+        else
+            alert("load sense")
+
+
+
+
+
+
+    };
+    ++seq;
+    var url = "/test/index"+para;;
+    log( "tx:" + url + "\n");
+    xhttp.open("GET", url, true);
+    xhttp.send();
+
+}
+
+
+
+
+function loadsens()
+{
+    _loadsens(last_loadsens_para);
+}
+
+//loadsens();
+
+
+var parms=new Array();
+
+function parseUrl() {
+
+    var pi=window.location.href.indexOf("?");
+    if(pi<0)
+        return;
+    var parlist=window.location.href.substring(pi+1).split("&");
+
+
+    parlist.forEach( function(e,i) {
+        var nv=e.split("=");
+
+        parms[nv[0]]=nv[1];
+
+        }
+
+    );
+
+
+
+
+
+}
+
+   parseUrl();
+
+function  mixSen(arry) {
+
+var map=new Array;
+/*
+    for(var i=1;i<51;++i)
+    {
+        map[i]=i;
+
+    }
+*/
+
+
+for (var i=0;i<7;++i)
+    for(var j=0;j<7;++j)
+    {
+        var ij=i*7+j+1
+        var ji=j*7+i+1
+        map[ij]=ji;
+    }
+    map[50]=50;
+
+//var f=window.location.href.indexOf("fix=1");
+//
+//   if(f>=0)
+    return map;
+    if(parms["fix"]=="1")
+       return map;
+
+        for(var i=1;i<51;++i) {
+
+
+             var j = Math.floor(Math.random() * 50) + 1;
+          //  var j=i;
+
+             var t=arry[i];
+         arry[i]=arry[j];
+         arry[j]=t;
+
+         var ti=map[i];
+         map[i]=map[j];
+         map[j]=ti;
+
+     }
+
+
+return map;
+
+}
+
+
+
+
+
+//var mixmap=mixSen(sens);
+//var mixmap=sens;
+
+
+function  getMixMap() {
+
+
+    var arry=new Array;
+    arry[0]=0;
+
+
+
+
+
+    for(var i=1;i<51;++i) {
+
+
+        var j = Math.floor(Math.random() * 50) + 1;
+
+
+        arry[i]=j;
+        arry[j]=i;
+
+    }
+
+return arry;
+
+
+}
+
+var images=[
+	document.getElementById("img0"),document.getElementById("img1"),document.getElementById("img2"),document.getElementById("img3"),
+	document.getElementById("img4"),document.getElementById("img5"),document.getElementById("img6"),document.getElementById("img7"),
+	document.getElementById("img8")];
+
+
+
+   var imagesx=[
+       document.getElementById("imgx0"),document.getElementById("imgx1"),document.getElementById("imgx2"),document.getElementById("imgx3"),
+       document.getElementById("imgx4"),document.getElementById("imgx5"),document.getElementById("imgx6"),document.getElementById("imgx7"),
+       document.getElementById("imgx8")];
+
+   var imgs=[
+       {img:document.getElementById("imgx0")},
+       {img:document.getElementById("imgx1")},
+       {img:document.getElementById("imgx2")},
+       {img:document.getElementById("imgx3")},
+       {img:document.getElementById("imgx4")},
+       {img:document.getElementById("imgx5")},
+       {img:document.getElementById("imgx6")},
+       {img:document.getElementById("imgx7")},
+       {img:document.getElementById("imgx8")},
+   ];
+
+   var play_end_do=0;
+var test_audio=0;
+
+
+	function play_submit()
+	{
+		if(play_end_do==0)
+			return;
+		
+		play_end_do=0;
+       // init_keyword(cur+1);
+       //
+        test_audio=1;
+		show_test();
+        test_audio=0;
+
+
+		
+		
+	}
+
+
+
+	function testR()
+    {
+        var ar = [0,0,0,0,0,0,0,0,0];
+
+        for(var i=0;i<1000;++i) {
+            var ii = Math.floor(Math.random() * 9) //form 0 to 8
+            ++ar[ii];
+        }
+    }
+
+   var getTestPicsn=0;
+	var lasttarget=-1;
+	function get_only_word(sel)
+    {
+        var off= Math.floor(Math.random() * 50);
+        var len=sel.length;
+        for(var i=0;i<50;++i)
+        {
+            var ii=(i+off)%50;
+            var  wd= sens[ii].hardword.slice(0,4);
+            var j;
+            for( j=0;j<len;++j)
+            {
+                if(sel[j]==wd)
+                    break;
+            }
+
+            if(j==len)
+            {
+                sel[len]=wd;
+
+                return ii;
+
+            }
+
+        }
+        return 0;
+
+    }
+   function getTestPics(target) {
+
+
+	    var sel=new Array();
+	    sel[0]=sens[target].hardword.slice(0,4);
+       if(target==lasttarget)
+          ++getTestPicsn;
+       else
+           getTestPicsn=0;
+
+       lasttarget=target;
+
+
+       var r=9;
+       var off=0;
+       if(type_loadsens_para==3 ) {
+           r = 8;
+           off=1;
+       }
+
+
+       var re=[];
+	    var ptag= Math.floor(Math.random() * r);
+	    if(ptag== (r-1))
+            ptag=ptag;
+
+       var j=0;
+       for(var i=0;i<r;++i) {
+           if(i==ptag) {
+               re[i] = target;
+               continue;
+           }
+
+
+           re[i]= get_only_word(sel);
+           ++j;
+       }
+       if(type_loadsens_para==3 )
+       {
+           re[8]=re[4];
+           re[4]=(target+1)%50+1;//always wrong for this pic
+       }
+
+
+      return re;
+   }
+
+function getTestPics3333(target) {
+    //target 1..50
+
+    var ri=mixmap[target];
+
+    var max=50;
+    var i;
+
+    var pics = new Array(max);
+    var re =[];
+
+    pics[target-1]=1;
+    /*
+    var s=target-5;
+    if(s<0)
+        s=0;
+    var e=target+5;
+    if(e>max)
+        e=max;
+    for(i=e;i<e;++i)
+        pics[i]=1;
+*/
+    if(target>1)
+        pics[target-2]=1;
+
+    re[0]=target;
+
+
+    for(i=1;i<9;)
+    {
+        var j=Math.floor(Math.random() * max);
+
+        var rj=mixmap[j+1];
+
+        if(pics[j]==null && ((rj>ri+5) || (rj<ri-5) ))
+        {
+            re[i]=j+1;
+            pics[j]=1;
+            ++i;
+        }
+
+    }
+    var r=9;
+    var off=0;
+    if(type_loadsens_para==3 ) {
+        r = 8;
+        off=1;
+    }
+
+    var k=Math.floor(Math.random() * r)+off;
+    re[0]=re[k];
+    re[k]=target;
+
+
+    re[k]=target;
+
+    if(type_loadsens_para==3 )
+    {
+
+      var t=  re[4];
+      re[4]=re[0]
+        re[0]=t;
+
+    }
+
+
+    return re;
+
+
+}
+
+function init_players()
+{
+    var  i;
+    if(pre_entext!=null) {
+        for(i=0;i<3;++i) {
+            pre_entext[i].init();
+
+        }
+
+        return;
+    }
+
+
+
+
+    //pre_entext[1].player=player[0];
+   // pre_entext[2].player=player[1];
+
+    //var fn=path+aac;
+    //player.src=fn;
+    //player.play();
+    //img.src=path+imgfn;
+}
+
+   var rightnum=0;
+	var curi=0;
+
+function init() {
+    //var  i=sens[0].cur;
+    //alert("init()")
+    cur = 0;
+    curi=0;
+    rightnum=0;
+
+    var i = 1;
+    for (i = sentence_start; i < sens.length; ++i) {
+
+
+        var n = sens[i].path_id.lastIndexOf('/');
+        var path = sens[i].path_id.slice(0, n + 1);
+        if(sens[i].audio==null)
+            sens[i].audio = sens[i].path_id + ".mp3"
+            else
+        sens[i].audio = path + sens[i].audio;
+
+        if(sens[i].image_file !=null && sens[i].image_file !="")
+        sens[i].image_file = path + sens[i].image_file;
+    }
+
+    player[0].onended=play_submit;
+    player[1].onended=play_submit;
+
+    init_players();
+
+
+}
+
+//init();
+var cur=0;
+function getImgText(sen)
+{
+    var img="<img src='"+sen.image_file+"'>";
+    if(sen.image_file==null || sen.image_file=="") {
+        img = sen.cn_text;
+        if(img==null)
+            img="Can't translate:"+sen.en_text;
+    }
+    return img;
+}
+
+
+ function  setBlankforWord(txt,wd,isblank)
+   {
+       var re=_setBlankforWord(txt,wd,isblank,true);
+       if(re!=null)
+           return re;
+       re=_setBlankforWord(txt,wd,isblank,false);
+       if(re!=null)
+           return re;
+
+       return txt;
+   }
+
+
+   function _setBlankforWord(txt,wd,isblank,isEXactly)
+   {
+     //  var txt=sen.en_text;
+
+    //   var wd=sen.hardword;
+
+
+
+
+
+
+       var ltxt=txt.toLowerCase();
+       var  lwd=wd.toLowerCase();
+       var keylen=wd.length;
+
+       var fi=0;
+       var finext=0;
+       var out="";
+       var findn=0;
+       var lastSearchi=0;
+
+       var rwd="";
+
+       if(isblank) {
+           for (var i = 0; i < keylen; ++i)
+               rwd += "_";
+       }
+
+
+
+
+
+
+       for(fi=0;;) {
+           var find = ltxt.indexOf(lwd, lastSearchi);
+           if (find<0) {
+               if(lastSearchi>0 || lwd.length<3)
+               break;
+
+               lwd=lwd.slice(0,lwd.length-1);
+               continue;
+           }
+           if(find>0)
+           {
+              var pre=ltxt.charAt(find-1);
+              if((pre>='a' && pre<'z') || (pre>='A' && pre<'Z'))
+              {
+                  lastSearchi=find+keylen;
+                  continue;
+              }
+
+           }
+
+           if((find+keylen)<ltxt.length && isEXactly) {
+               var pre = ltxt.charAt(find+keylen);
+               if ((pre >= 'a' && pre < 'z') || (pre >= 'A' && pre < 'Z')) {
+                   lastSearchi = find + keylen;
+                   continue;
+               }
+           }
+
+
+           ++findn;
+           out+=txt.substring(fi,find);
+           if(! isblank)
+             rwd=txt.substring(find,find+keylen);
+           out+="<span style='background-color: #ebed15 '>"+rwd+"</span>";
+
+           fi=find+keylen;
+           lastSearchi=fi;
+           //finext=find+keylen;
+
+       }
+
+
+       out+=txt.substring(fi);
+
+
+      if(findn==0)
+          out=null;
+
+       return out;
+
+
+       //return   txt.replace(new RegExp(wd,"gmi"),hiwd)
+
+
+   }
+
+  var imagesx_word=new Array(9);
+
+function setimg(pic,senno,isReadWord)
+{
+
+    var img= imgs[pic];
+    img.sen_no=senno;
+
+    imagesx_word[pic]=null;
+
+    if(type_loadsens_para==2)
+    {
+        //  var txt=sen.en_text;
+
+        //   var wd=sen.hardword;
+
+       // imagesx[pic].innerHTML=setBlankforWord(sens[senno].en_text,sens[senno].hardword,true);
+
+
+      // imagesx[pic].innerHTML=  sens[senno].hardword;
+        img.img.innerHTML=  sens[senno].hardword;
+
+        imagesx_word[pic]=sens[senno].hardword;
+
+    }
+
+
+    else if(type_loadsens_para==3 )
+    {
+        if(pic==4)
+        {
+           // imagesx[pic].innerHTML=getImgText(sens[cur]);//"<img src='"+sens[cur].image_file+"'>";
+            img.img.innerHTML=getImgText(sens[cur]);
+
+        }
+            else
+            img.img.innerHTML=setBlankforWord(sens[senno].en_text,sens[senno].hardword,false);
+
+
+
+    }
+    else
+
+        img.img.innerHTML=getImgText(sens[senno]);
+
+}
+
+var newpos=[0,1,2,3,4,5,6,7,8];
+
+var loadn=[-1,-1];
+var loadnext=-1;
+
+
+
+
+
+var clk_n=0;
+var clk_trans=0;
+var state=0;
+var last_state=0;
+var turn=1;
+var play_n=0;
+var can_play=0;
+var  show_en=0;
+
+var playwordn2=0;
+function enplayx ()
+{
+    //alert("playwordn2="+playwordn2);
+    if(playwordn2!=playwordn)
+    {
+        playwordn2=playwordn;
+        return;
+    }
+
+
+
+    playx();
+}
+
+var pre_entext=null;
+
+function find_seni(s1,tagi) {
+
+    for(var i=0;i<3;++i) {
+        if( pre_entext[i].seni != s1)
+           continue;
+
+
+        if(i==tagi)
+            return i;
+
+
+        var t =pre_entext[i];
+        pre_entext[i]= pre_entext[tagi]
+        pre_entext[tagi]=t;
+
+
+        return i;
+
+    }
+    if(tagi==0)
+        return -1;
+
+    pre_entext[tagi].get_entxt(s1,0);
+    return tagi;
+
+}
+
+function get_cur_context() {
+
+    var s1 = cur - 1;
+    var s2 = cur;
+    var s3 = cur + 1;
+
+
+
+   // if(test_audio==1)
+    //    return;
+
+
+    if (s1 >= sentence_start) {
+        find_seni(s1, 0)
+
+    }
+
+
+    find_seni(s2, 1);
+
+    if (s3 < sens.length ) {
+        find_seni(s3, 2)
+    }
+
+
+
+}
+
+function get_cur_entxt(show) {
+
+
+
+
+        get_cur_context();
+
+ //   if(test_audio==1)
+  //      return;
+    return pre_entext[1].get_entxt(cur,show);
+
+
+
+}
+
+
+var CountsplitCallback=0;
+   function splitCallback(senx) {
+       var sen=sens[cur];
+       var player=pre_entext[1].player;
+       ++CountsplitCallback;
+       player.src=senx.path_id+"_0.mp3?v="+CountsplitCallback;
+       player.load();
+       mp3State=2;
+       sen.audio=senx.audio;
+       //player.onend=null
+       //player.play();
+      // playword_sentence();
+       go_word(0);
+
+       updateCnTxt();
+
+   }
+
+
+   function onClksplitMp3()
+   {
+       if(mp3State==0)
+           return;
+
+       ++on_clk_cn_info1;
+
+       makeSplitMp3(sens[cur],splitCallback);
+
+   }
+
+   function play_senx(n,bc)
+{
+   // if(pre_entext==null)
+     //  init_players()
+    //alert("play_senx n="+n);
+    log("play_senx");
+    get_cur_context();
+    pre_entext[1].play(bc);
+/*
+
+    var p= pre_entext[1].player;
+
+
+
+    if(p.currentTime!=0)
+        p.currentTime=0;
+   // alert("play_sen readyState="+p.readyState)
+    //testAudio("/11/6/sa_11_4511_0_3_20150808152418.aac");
+   // testAudio(p.src);
+    //alert("curPayer");
+    curPayer(p);
+   //p.play();
+   p.onended =function (){
+       p.currentTime=0; bc();}
+       */
+}
+
+   function play_sen(n)
+   {
+       return play_senx(n,null);
+   }
+
+
+function get_keyWord(seni) {
+    var s=sens[seni];
+
+
+    var keyword=null;
+/*
+    if(s.state<1)
+    {
+        keyword=s.lastword;
+
+    }
+    if(keyword==null)
+    */
+        keyword=s.keyword;
+
+
+    if(keyword==null) {
+        keyword = s.defkeyword;
+    }
+
+    if(keyword==null)
+        keyword=s.hardword;
+    return keyword;
+
+}
+
+
+   function get_hisword(seni) {
+
+      var s=sens[seni];
+
+      /// var his=.keyword;
+       var his=s.hardword;
+       var key=s.defkeyword;
+
+
+       if(key==null) {
+          return his;
+       }
+       his=key;
+       key=s.keyword;
+
+
+       if(key==null) {
+           return his;
+       }
+
+       his=key;
+       key=s.hiskeyword;
+
+
+       if(key==null) {
+           return his;
+       }
+       his=key;
+
+        return his;
+
+
+
+   }
+
+function get_entxt(seni,show) {
+
+
+    if( this.seni!=seni) {
+
+        this.seni = seni;
+        var s=sens[seni];
+
+
+
+
+        if(tv_audio==null) {
+            this.player.src = sens[seni].audio;
+            //if(cur!=1)
+            this.player.load();
+        }
+        else
+        {
+            this.pre_url=sens[seni].audio;
+        }
+
+        this.audioi = audioi;
+        var en=sens[seni].en_text;
+        //en="we're  walking at a fast pace.";
+        this.en_show_text = getsen(en, 1);
+        this.en_show_text2 = getsen(en, 2,s.hardword);
+
+        audioi = this.audioi;
+        this.en_hide_text = getsen(en, 0,s.hardword);
+
+
+
+       if(s.lastword!=null)
+           loadWord(s.lastword);
+
+        var mp3state=getMp3State(s);
+        if(mp3state==1)
+        play_load_splitmp3(s,0);
+
+
+        loadWord(get_keyWord(seni));
+
+    }
+
+    if(show==1)
+    return  this.en_show_text;
+    else if(show==2)
+      return  this.en_show_text2
+
+    else
+        return this.en_hide_text;
+
+
+}
+
+
+function pre_entext_init() {
+
+    this.seni=-1;
+    this.en_show_text=null;
+    this.en_hide_text=null;
+    this.get_entxt=get_entxt;
+    //this.player=document.createElement("AUDIO");
+    //this.player.onended=play_submit;
+
+}
+
+
+
+
+
+function show_entext(show) {
+
+
+    //en_text.innerHTML=getsen(sens[cur].en_text,show)
+    if(show==-1)
+    {
+        en_text.innerHTML="";
+            get_cur_entxt(1);
+
+    }
+        else
+    en_text.innerHTML=get_cur_entxt(show);
+}
+
+function onshow_enlish()
+{
+	//++show_en;
+
+
+
+
+	++clk_trans;
+    //frequency.innerHTML=sens[cur].frequency+"["+sens[cur].hardword+"]";
+    //set_key_word(sens[cur].frequency+"["+sens[cur].hardword+"]");
+    init_keyword(cur);
+    en_text.className="";
+    show_entext(1);
+
+	update();
+	//playx();
+    //cn_text.className="hidden2";
+}
+
+function onshow_chinese()
+{
+	//++show_en;
+	//++clk_n;
+    onshow_enlish();
+
+	update();
+    //cn_text.className="";
+   //
+    var fag="";
+ if(mp3State==2)
+{
+    fag="En:";
+}
+
+    cn_text.innerHTML=fag+sens[cur].cn_text;
+
+
+	playx();
+}
+
+
+ var    on_clk_cn_info1=0;
+var on_clk_cn_info2=0;
+
+
+
+function on_clk_cn_info() {
+
+
+    if (on_clk_cn_info2 != on_clk_cn_info1) {
+        on_clk_cn_info2 = on_clk_cn_info1;
+        return;
+    }
+//#[{"id":24047,"word_level_id":null,"tag_id":null,"image_file":"23708.jpg",
+// "en_text":"Each of my sisters has a different hair style from one another.",
+// "cn_text":"different [?d?f(?)r(?)nt] adj. Different describes someone or something that is not the same as others.",
+// "phrase":null,"audio":"23708.mp3","right_n":null,"t_right":null,"t_wrong":null,"created_at":"1918-12-11T10:41:15.085Z","
+// updated_at":"1918-12-11T10:41:15.085Z","path_id":"/dic/4k/1/Unit-30/wordlist/different","frequency":92,
+// "hardword":"different","first_id":"/dic/4k/1/Unit-30/wordlist/different","defkeyword":null,"state":0,"readn":0,"wrongn":0,"last":null,"usename":"Jimmy","read_no":0,"turn":0,"random":null,"fav":null,"Reciten":0,"searchDate":null,"keyword":null,"wordlistenn":0,"hiskeyword":null,"wordtime":null},{"id":29122,"word_level_id":null,"tag_id":null,"image_file":"28828.jpg","en_text":"Her dad bought her a new jacket after her dogged requests for one.","cn_text":"dogged [?d?(:)gid] adj. When someone??s actions are dogged, they try hard to continue something.","phrase":null,
+// "audio":"28828.mp3","right_n":null,"t_right":null,"t_wrong":null,"created_at":"1918-12-12T03:32:04.909Z","updated_at":"1918-12-12T03:32:04.909Z","path_id":"/dic/4k/6/Unit-5/wordlist/dogged","frequency":99,"hardword":"dogged","first_id":"/dic/4k/6/Unit-
+
+
+        if(mp3State==2) {
+            var url = sens[cur].path_id + "_0.mp3.mp3";
+            // alert(url);
+            auPlayer.play(url, null);
+           // update();
+            return;
+        }
+        else if(mp3State==1)
+        {
+
+
+            play_sen(cur);
+           // update();
+            return;
+        }
+
+
+    playx();
+}
+
+
+
+function playx()
+{
+    --can_play;
+	++play_n;
+	//play_sen(cur);
+    playword_sentence();
+	update();
+}
+
+
+function show_state()
+{
+    var f="";
+    if(state>=0)
+        f="+";
+
+	//state_disp.innerHTML=""+turn+":"+state+"/"+last_state+" "+clk_n;
+
+	state_cur.innerHTML=""+cur;//+"/"+sens.length;
+    //state_cur2.innerHTML=""+sens[cur].state+f+state+"/"+sens[cur].read_no;
+	var c="";
+	if(state==2)
+	    c="green";
+	else if (state==1)
+		{
+		    c="blue";
+		    if(play_n>1)
+		        c="yellow";
+		}
+		else
+		c="red";
+
+
+    descrption.className=c;
+
+}
+
+function show_test()
+{
+	go_word(1);
+}
+    var keyword;
+
+
+function set_hisword(wd,disp) {
+    sens[cur].hisword=wd;
+    Ehisword.innerHTML = "<span onclick=\"on_clk_hisword(this,'" + wd+ "')\" >"+disp+"</span>";
+
+}
+var hisword;
+
+
+  var playerState=document.getElementById("playerState");
+
+   function updatePlayerState(sen ,cb) {
+
+
+
+       var state="-"
+       //  gcurPayer
+
+
+
+       var p = getgcurPayer();
+       if(p!=null) {
+          state=p.readyState;
+           //return;
+       }
+
+       if(auPlayer!=null)
+       {
+       // state=""+state+"/"+ canplayn;
+       }
+
+       playerState.innerHTML=state;
+
+   }
+
+
+   setInterval(updatePlayerState,500);
+
+var  lastwordE=document.getElementById("lastwordE");
+
+
+
+function get_key_word(that) {
+    var wd=that.wd;
+    if(that.wd2!=null)
+        wd=that.wd2;
+    return wd;
+}
+
+
+function on_clk_span(that) {
+    //alert(that.wd);
+
+      var ans=gwds[sen_sel_cur];
+    if(that.answer!=null ) {
+        //
+        if(ans.seg==that.seg) {
+
+            if (that != null)
+                that.style.backgroundColor = "";
+
+            that.answer.appendChild(that);
+            that.answer = null;
+            check_ok_word(ans);
+            return;
+           // ++answer_right;
+
+        }
+        else
+            return;
+
+
+       // that.style.backgroundColor;
+    }
+
+
+    onClkEn(that,get_key_word(that));
+
+}
+
+//<span>
+   // wd1<span></span>
+//</span>
+function make_span(seg1,seg2) {
+    var span = document.createElement("SPAN");
+
+
+    span.onclick=function(ev){on_clk_span(span)};
+    span.style.backgroundColor="#55acee";
+
+    span.innerHTML=seg1+"<span>"+seg2+"</span>";
+
+
+    return span
+
+}
+
+
+   function add_word_span(seg,wd,wd2,e,wds,answer) {
+
+    if(wd==null)
+        return;
+
+
+
+
+
+   
+
+
+           /*
+           var abc=0;
+           for (var i = 0; i < seg.length; ++i) {
+               var c=seg.charAt(i);
+               if((c>="a" && c<="z")||(c>="A" && c<="Z"))
+               {
+                    ++abc;
+                         if(abc<=1)
+                             txt+=c;
+                         else
+                             txt+="_"
+               }
+               else {
+                   abc=0;
+                   txt += c;
+               }
+
+       }*/
+
+
+
+       var i=0;
+       for (i = 0; i < seg.length; ++i) {
+           var c=seg.charAt(i);
+           if((c>="a" && c<="z")||(c>="A" && c<="Z"))
+           break;
+       }
+
+
+      var seg1=seg.substring(0,i);
+
+
+
+      var  seg2=seg.substring(i);
+
+       var span=make_span(seg1,seg2);
+       span.wd=wd;
+       span.seg=seg;
+       span.wd2=wd2;
+       span.answer=answer;
+
+
+       wds.push(span);
+     // e.appendChild(span);
+       return span;
+
+   }
+
+   function add_word_text(wd,e) {
+      // var span = document.createElement("SPAN");
+       //span.onclick=function(ev){alert(span.innerHTML)};
+
+       var textnode = document.createTextNode(wd);
+     //  span.appendChild(textnode);
+
+       e.appendChild(textnode);
+       return textnode;
+
+   }
+
+   function remove_all_child(node)
+   {
+       while(node.firstChild) {
+           node.removeChild(node.firstChild);
+       }
+   }
+
+   function play_seg_word(word,bc) {
+
+       var wd1=word.wd;
+       var wd2=word.wd2;
+       if(wd2!=null) {
+      if(wd1.length<3 || wd1.toLowerCase()=="the" ) {
+               wd1=wd2;
+               wd2 =null;
+           }
+
+       }
+
+
+
+       playWordx(wd1,function() {
+
+
+           if(wd2!=null)
+           {
+               playWordx(wd2,function() {
+                   bc();
+
+               });
+           }
+           else
+              bc();
+
+       });
+
+
+   }
+
+
+
+   function get_rand_mix(n) {
+    var i;
+    var seq=[];
+       for ( i = 0; i < n; ++i)
+           seq[i]=i;
+
+
+
+
+       for ( i = 0; i < n; ++i) {
+           var ii=Math.floor(Math.random()*n);
+           if(ii<0 || ii>=n)
+               ii=ii;
+           if(ii==(n-1))
+               ii=ii;
+
+           var t=seq[i];
+           seq[i]=seq[ii];
+           seq[ii]=t;
+
+
+       }
+
+       return seq;
+
+   }
+
+
+   var gwds;
+   var answer_right=0;
+
+   function getsen_sel(sen,en) {
+       //The police will take the man off to prison.
+       var out ="";
+       var abc=0;
+       var nonabc=0;
+       var wd="";
+       var last_wd=null;
+       var jj=0;
+
+
+       remove_all_child(en);
+       remove_all_child(answer_text);
+       gwds=[];
+       answer_right=0;
+
+       var last_stat=0;
+       var st=2;
+       var cur=null;
+       var last=null;
+       var last_non_abc;
+       var seg='';
+       var seg_wd_n=0;
+
+       for(var i=0;i<=sen.length;++i,wd+=c,last_stat=st,seg+=c)
+       {
+           var c=sen.charAt(i);
+
+
+
+           if(i==sen.length)
+               st=-1;
+           else if(last_stat==1 && c=="'")
+           {
+
+               var ch2=null;
+               var ch3=null;
+               if( (i+1)<sen.length)
+                    ch2=sen.charAt(i+1);
+               if( (i+2)<sen.length)
+                   ch3=sen.charAt(i+2);
+
+               if(!((ch3>="a" && ch3<="z")||(ch3>="A" && ch3<="Z")))
+               {
+                   ch3=null;
+               }
+               if(ch3==null && (ch2=='s' || ch2=='t'))
+               {
+                   ++abc;
+                   st=1;
+
+               }
+               else
+               {
+                   st=2;
+                   ++nonabc;
+
+               }
+
+
+
+
+           }
+           else if((c>="a" && c<="z")||(c>="A" && c<="Z"))//|| c=="'")
+           {
+               ++abc;
+               st=1;
+           }
+           else
+           {
+               st=2;
+               ++nonabc;
+           }
+
+
+
+
+           if(st==last_stat || i==0)
+               continue;
+
+
+
+
+           if(last_stat==2 )
+           {
+
+                if(st==-1 && last_wd==null)
+                    add_word_text(wd,en);
+              // if(seg_wd_n<1)
+                //   seg='';
+
+
+               last_non_abc=wd;
+               nonabc=0;
+
+           }
+
+           if(last_stat==1)
+               ++seg_wd_n;
+           if(st==-1 && seg_wd_n>=1  )
+           {
+
+             st=-2;
+           }
+
+
+
+           if(last_stat==1 || st==-2)
+           {
+
+               if(seg_wd_n>1 || st==-2||(wd!=null && wd.length>3 && seg_wd_n==1 )) {
+                   var wd1=null;
+                   var wd2=null;
+                   if(seg_wd_n==1)
+                   {
+                       if(last_wd==null)
+                       wd1=wd;
+                       else
+                           wd1=last_wd;
+                   }
+                   else if(seg_wd_n==2) {
+                       if (last_wd == null)
+                           wd1 = wd;
+                       else {
+                       wd1 = last_wd;
+                       wd2 = wd;
+                   }
+                   }
+
+
+                   cur = add_word_span(seg,wd1,wd2, en, gwds,answer_text);
+
+
+
+                   if (last != null)
+                       last.next = cur;
+                   last = cur;
+                   seg='';
+                   seg_wd_n=0;
+                   last_wd=null;
+               }
+               else
+                   last_wd=wd;
+
+
+               abc=0;
+               last_non_abc=null
+           }
+
+
+
+           wd="";
+
+
+
+
+
+       }
+
+
+      var mix=get_rand_mix(gwds.length);
+
+       for (var i=0;i<mix.length;++i)
+       {
+           en.appendChild(gwds[mix[i]])
+           var textnode = document.createTextNode(" ");
+           en.appendChild(textnode);
+
+       }
+
+
+   }
+
+   function check_ok_word(word)
+   {
+
+       //var word=gwds[pos];
+       //word.innerHTML=word.seg;
+      ghightLight1.show(word);
+       ++playwordn;
+
+
+
+
+
+       ++sen_sel_cur;
+
+       if(sen_sel_cur>=gwds.length)
+       {
+           play_seg_word(word,function () {
+
+               play_senx(cur,function () {
+                  // go_word(1);
+               });
+
+
+           });
+
+
+           init_keyword(cur);
+            ++con_right; 
+            bserach();
+
+
+           return;
+       }
+
+
+       play_seg_word(word,function () {
+
+           //if(word.next==null)
+           //    return;
+          // ghightLight1.show(word.next);
+       });
+
+
+       //if(sen_sel_cur>=(sen_sel_off+9))
+       if( (sen_sel_off+9)<gwds.length &&(sen_sel_cur%5==0 || sen_sel_cur==(gwds.length-9)))
+       {
+
+           sen_sel_off=sen_sel_cur;
+           set_sel_pic();
+
+       }
+       set_key_word("", get_key_word(gwds[sen_sel_cur]));
+
+   }
+
+  function play_next_short_word(word)
+  {
+        if(word==null)
+            return;
+      ghightLight1.show(word);
+        if(word.wd.length>3)
+            return;
+
+      playWordx(word.wd,function() {
+
+          play_next_short_word(word.next);
+
+      });
+     var next=word.next;
+  }
+
+
+   var img_redir=[0,1,2,3,4,5,6,7,8];
+   var sen_sel_off=0;
+   var sen_sel_cur=0;
+   function sel_word_sen(n) {
+       var pos=img_redir[n]+sen_sel_off;
+
+
+       var cursel= imgs[n];
+
+    if( pos>=gwds.length || cursel.img.innerHTML=="")
+       {
+           play_sen(cur);
+           return;
+       }
+       var word=gwds[pos];
+       var answer=gwds[sen_sel_cur];
+
+
+
+       if(answer.seg==word.seg)
+       {
+
+
+           cursel.img.innerHTML="";
+           check_ok_word(answer);
+
+
+       }
+
+       else {
+
+
+
+           playWordx(get_key_word(word), function () {
+               play_sen(cur);
+           });
+       }
+
+   }
+ function set_sel_pic() {
+
+
+
+
+     for (var i = 0; i < 9; ++i) {
+         var ii=Math.floor(Math.random()*9);
+         if(ii<0 || ii>8)
+             ii=ii;
+         var t=img_redir[i];
+         img_redir[i]=img_redir[ii];
+         img_redir[ii]=t;
+     }
+
+
+     for (var i = 0; i < 9; ++i) {
+         var cur= imgs[i];
+         var pos=img_redir[i]+sen_sel_off;
+
+         if(pos<gwds.length)
+               cur.img.innerHTML=  gwds[pos].seg;
+
+         else
+             cur.img.innerHTML="";
+     }
+     set_key_word("", get_key_word(gwds[sen_sel_cur]));
+
+
+
+
+ }
+
+ function set_select_word(sen,readn)
+   {
+
+     // show_entext(0);
+       get_cur_entxt(1);
+
+       getsen_sel(sen.en_text,en_text);
+       set_sel_pic();
+
+
+
+   }
+
+function init_keyword(id) {
+
+    var s=sens[id];
+
+    keyword=get_keyWord(id);
+
+
+
+    keyword_save=keyword;
+    keyword_save_n=0;
+
+    if(  s.lastword!=null)
+    {
+        keyword=s.lastword;
+    }
+
+    //frequency.innerHTML=sens[cur].frequency+"["+getPartWord(keyword)+"]";
+    //set_key_word(s.frequency+"["+keyword+"]",keyword);
+
+    var dwd;
+
+    if(s.state>1)
+        dwd=keyword;
+    else
+        dwd=getPartWord(keyword);
+
+    set_key_word(s.frequency+"["+dwd+"]",keyword);
+    //hisword.innerHTML=s.hiskeyword;
+    hisword=get_hisword(id);
+
+
+    if (hisword==null)
+        Ehisword.innerHTML="";
+    else {
+        loadWord(hisword);
+        //hisword.innerHTML = "<span onclick=\"on_clk_hisword(this,'" + s.hiskeyword + "')\" >****</span>";
+
+
+       // set_hisword(hisword,getPartWord(hisword));
+    }
+
+
+
+
+
+}
+var curSen=null;
+var mp3State=0;
+
+   function updateCnTxt() {
+       if(mp3State==1)
+       {
+           cn_text.innerHTML="*"+sens[cur].cn_text;
+       }
+       else if(mp3State==2)
+       {
+           cn_text.innerHTML="En";
+       }
+       else
+           cn_text.innerHTML="汉";
+
+   }
+
+    function getMp3State(sen) {
+
+        var path_id=sen.path_id;
+        var audiof=sen.audio;
+        var State=0;
+        // var path_id=sens[cur].path_id;
+        if(path_id.indexOf("/wordlist/")>0)
+        {
+            State=1;
+
+            if(audiof.indexOf("_0.mp3")>0) {
+                State=2;
+            }
+        }
+
+        return State;
+
+
+    }
+
+
+   var  check_silence_checked=false;
+   var sentence_start=1;
+
+    function go_word(step)
+    {
+        sen_sel_cur=0;
+        sen_sel_off=0;
+        //alert("show_test");
+        hide_Search_page();
+        curPayer(null);
+        setLastWord(null);
+        curi+=step;
+
+
+
+        if(curi<sentence_start)
+            curi=sentence_start;
+
+        //cur=mixmap[curi]
+
+        cur=curi;
+
+
+
+        if(cur>=sens.length && sens.length>0 )
+        //if(cur>3)
+        {
+
+
+            //window.open("/test/David");
+            //location.reload();
+
+            cur=0;
+            //++turn;
+            loadsens();
+            alert("Done!!!!! New turn !!!!");
+            return;
+
+        }
+
+
+        curSen=sens[cur];
+
+        var en=getsen(curSen.en_text,0,curSen.hardword);
+
+        if(type_loadsens_para!=4)
+        {
+            mp3State = getMp3State(curSen);
+            newpos = getTestPics(cur);
+
+            for (i = 0; i < 9; ++i) {
+                setimg(i, newpos[i]);
+            }
+        }
+
+        /*
+
+        if(type_loadsens_para!=3 ) {
+
+            var nonei = Math.floor(Math.random() * 9);
+
+            nonei = 8;
+            imagesx[nonei].innerHTML = "<img src='/img/allWrong.png'>";
+        }
+        */
+
+        //ok return;
+
+        //if(is_first_load_sentens==0)
+
+
+        en_text.className="";
+
+
+         updateCnTxt() ;
+
+       // cn_text.className="hidden2";
+        //
+
+
+        if(type_loadsens_para==4)
+            set_select_word(curSen,0);
+        else if(curSen.state>1) {
+            var wd=get_keyWord(cur);
+           // en_text.innerHTML ="<span onclick=\"onClkEn(this,'"+wd+"')\">&nbsp;&nbsp;&nbsp;&nbsp;["+wd+"]</span>" ;
+            if(type_loadsens_para==3 )
+                show_entext(-1);
+          else
+            show_entext(1);
+
+        }
+        else if(curSen.state==1)
+                   show_entext(2);
+        else
+            show_entext(0);
+
+
+
+
+       // fail return;
+
+        cur_state=curSen.state;
+
+        clk_n=0;
+        clk_trans=0
+        con_right=0;
+        state=1;
+        last_state=2;
+        play_n=0;
+        keyword_save_n=0;
+
+        can_play=0;
+        if(cur_state==0)
+            can_play=0;/// /yellow
+        else  if(cur_state==1)
+            can_play=0;//blue
+        else  if(cur_state>1)
+            can_play=0;//blue
+        else  if(cur_state<0)
+            can_play=2;//blue
+
+
+        if(curSen.state<1)
+            isNewWordsMode=1;
+        else
+            isNewWordsMode=0;
+
+
+        if(type_loadsens_para!=4)
+                init_keyword(cur);
+
+
+        test_during.innerHTML="0";
+        stop_count_take_timer();
+
+        if( cur_avg_time>=0 && step==0)
+        {
+            toal_time-=cur_avg_time;
+            --toal_test_n;
+            if(toal_test_n<1)
+            {
+                test_avg.innerHTML="-";
+
+
+            }
+            else {
+                var av = toal_time / toal_test_n;
+                test_avg.innerHTML = "" + (av / 1000).toFixed(1);
+            }
+        }
+        cur_avg_time=-1;
+        test_during.innerHTML="0";
+        test_get_right_time=0;
+
+
+
+        check_silence_checked=false;
+
+
+        if(type_loadsens_para==4)
+        {
+            play_sen(cur);
+            return;
+        }
+
+        else if(mp3State==1)
+        {
+            onClksplitMp3();
+        }
+
+        else {
+            if (cur_state < 1)
+                playword_sentence_start();
+            else if(cur_state ==1) {
+
+                on_playword_sentence_end();
+
+               // playWordx(curSen.hardword, on_playword_sentence_end);
+
+/*
+                playWordx(searchword, () => {
+
+                    playWordx(keyword_save, on_playword_sentence_end);
+                });
+                */
+
+            }
+            else
+            {
+                check_silence_checked=true;
+                on_playword_sentence_end();
+            }
+
+        }
+
+
+        update();
+
+
+    }
+
+
+    var  test_start_time=null;
+    var  test_get_right_time=0;
+    var cur_avg_time=-1;
+
+   var count_take_timer ;
+
+   function update_test_time() {
+       if( count_take_timer==null)
+           return 0;
+       var dt=new Date().getTime()-test_start_time.getTime();
+      // document.getElementById("demo").innerHTML = t;
+      test_get_right_time=dt;
+
+       test_during.innerHTML=""+(dt/1000).toFixed(0);
+
+       update();
+       return dt;
+
+   }
+
+
+   function stop_count_take_timer() {
+
+       if( count_take_timer!=null) {
+           clearInterval(count_take_timer);
+           count_take_timer = null;
+       }
+
+   }
+
+   function on_playword_sentence_end()
+   {
+       bserach2();
+       if(con_right>0)
+           return;
+
+       test_start_time=new Date();
+       //test_during.innerHTML="0";
+       count_take_timer = setInterval(update_test_time, 500);
+
+
+   }
+
+
+   function on_answer(right) {
+
+        if( cur_avg_time>=0)
+            return;
+
+
+       test_get_right_time=update_test_time();
+       stop_count_take_timer();
+
+      var maxt=(watingTime*2);
+
+        if(test_get_right_time>maxt)
+            test_get_right_time=maxt;
+
+       if(right==0)
+           test_get_right_time=maxt;
+
+       toal_time+=test_get_right_time;
+       cur_avg_time=test_get_right_time;
+       ++toal_test_n;
+
+
+       var av=toal_time/toal_test_n;
+       test_avg.innerHTML=""+(av/1000).toFixed(1);
+
+
+       test_during.innerHTML=""+(test_get_right_time/1000).toFixed(0);
+
+
+
+
+
+
+       test_start_time=null;
+
+   }
+
+
+   function playword_sentence_start() {
+
+
+        log("playword_sentence_start searchword="+searchword);
+       playWordx(searchword,function() {play_senx(cur, function()
+       {on_playword_sentence_end();
+
+       }
+       ); });
+   }
+
+
+
+function playword_sentence() {
+    if(type_loadsens_para==4)
+        play_sen(cur);
+
+     else
+        playWordx(searchword,function() {play_sen(cur); });
+}
+
+
+var seq=0;
+
+
+   function update()
+   {
+
+
+
+
+
+       var g=1;
+       var c="";
+
+       if(clk_n>0 || clk_trans>0) {
+           g = -1;
+           c="red";
+       }
+       else if(can_play<0 || test_get_right_time>watingTime || keyword_save_n>0)
+
+       {
+           g = 0;
+           c="red";
+       }
+       else if (can_play == 0) {
+           c="yellow";
+           g = 1;
+           }//yellow
+       else if(can_play>0) {
+               g = 1; //blue
+               c="blue";
+           }
+       else {
+               g = 0;
+               c="red";
+           }
+
+
+       state=g;
+
+       var f="";
+       if(sens[cur].state>=0)
+           f="+";
+
+      // state_disp.innerHTML=""+turn+":"+state+"/"+last_state+" "+clk_n;
+       var r=100;
+       if(cur>1)
+        r=parseInt((cur-1-rightnum)*100/(cur-1));
+
+
+
+
+       listen_score.innerHTML=""+parseInt(sens[cur].listen_score/10);
+       read_score.innerHTML=""+parseInt(sens[cur].read_score/10);
+
+       state_cur.innerHTML=""+state+f+sens[cur].state+"/"+sens[cur].read_no;//+"/"+sens.length;
+      // state_cur2.innerHTML=":"+cur+"/"+sens.length+"&gt;&gt;&gt;";
+       state_cur2.innerHTML=""+rightnum+"("+r+")/"+(cur-1);
+
+
+
+       descrption.className=c;
+
+
+   }
+
+
+
+
+    function upload_stat(){
+        if(state<=0)
+            ++rightnum;
+
+       var wdtime=null;
+       if(sens[cur].state>0)
+           wdtime=test_get_right_time;
+
+       if(wdtime==0)
+           wdtime=0;
+      var sen=curSen;
+
+        //_upload_statCB(sens[cur].path_id,seq,state,null,wdtime, (result) => {
+        _upload_statCB(sens[cur].path_id,seq,state,null,wdtime, function(result) {
+            var rec=result.record;
+
+            sen.lastword=rec.lastword;
+            sen.state=rec.state;
+            sen.read_no=rec.read_no;
+            sen.keyword=rec.keyword;
+
+
+
+            sen.listen_score=rec.listen_score;
+            sen.read_score=rec.read_score;
+
+        }
+    );
+
+
+        sens[cur].state=sens[cur].state+state;
+        if(sens[cur].state<-2)
+            sens[cur].state=-2;
+
+
+    }
+
+
+
+
+
+var con_right=0;
+
+var right_img=null;
+
+function set_right_img() {
+
+
+    for(var i=0;i<9;++i) {
+
+        if(newpos[i]==cur ) {
+
+            right_img=sens[cur].image_file
+            if(right_img==null || right_img=='')
+                right_img="/img/goback.jpeg";
+            continue;
+        }
+
+        if(i==4 && type_loadsens_para==3 )
+            continue;
+        //imagesx[i].innerHTML="<img src='/img/right.jpg'>";
+        imgs[i].img.innerHTML="<img src='/img/right.jpg'>";
+
+    }
+
+
+}
+
+
+
+function after_clk_righ()
+{
+
+    update();
+    upload_stat();
+    show_test();
+}
+
+function on_first_right_answer()
+{
+    set_right_img();
+    show_entext(1);
+    playWordx(searchword,function() {
+        play_senx(cur,null);
+    });
+
+    //return;
+    bserach();
+    if(type_loadsens_para==3 )
+        show_entext(1);
+
+
+
+}
+
+
+function  play_go_next()
+{
+    en_text.className = "";
+    //en_text.innerHTML=getsen(sens[cur].en_text,1)
+    show_entext(1);
+    //cn_text.className="";
+   if (mp3State != 2)
+        cn_text.innerHTML = sens[cur].cn_text;
+
+    play_end_do = 1;
+    //play_sen(cur);
+    update();
+
+    log("==== rightAnswer play wav :searchword=" + searchword);
+
+    //playWordx(searchword, function () {
+    //    play_senx(cur, after_clk_righ);
+   // });
+    after_clk_righ();
+
+
+    // play_sen(cur);
+}
+
+function rightAnswer() {
+
+
+
+
+        //  if (sens[cur].state >= 1 && state == 1)
+      check_silence_checked=false;
+
+
+            ++con_right;
+            on_answer(1);
+
+            // en_text.className="";
+            //en_text.innerHTML=getsen(sens[cur].en_text,1)
+            //show_entext(1);
+            // cn_text.className="";
+
+
+            if (con_right <= 1) {
+                on_first_right_answer();
+            } else
+            {
+                after_clk_righ();
+
+            }
+
+
+            return false;
+
+
+
+    en_text.className="";
+    //en_text.innerHTML=getsen(sens[cur].en_text,1)
+    show_entext(1);
+    //cn_text.className="";
+    var fag="";
+    if(mp3State==2)
+    {
+        fag="En:";
+    }
+
+
+    cn_text.innerHTML=fag+sens[cur].cn_text;
+    update();
+    upload_stat();
+    play_end_do=1;
+    play_sen(cur);
+
+
+    //show_test();
+//}
+
+
+
+
+    return false ;
+
+
+
+}
+
+
+
+function clk(n)
+{
+    if(type_loadsens_para==4)
+        return sel_word_sen(n)
+ //alert("images[n].src="+images[n].src)
+    if( imagesx_word[n]!=null)
+    searchword=imagesx_word[n];
+
+//alert ("newpos[n]="+newpos[n]+"imgs[n].sen_no= "+imgs[n].sen_no);
+    var sel=imgs[n].sen_no;
+ if(sel!=cur)
+ {
+     on_answer(0);
+
+     if(con_right>1)
+     {
+         con_right=0;
+         on_first_right_answer() ;
+
+         return false;
+     }
+
+     con_right=0;
+	 //images[n].src="";
+	 if(sens[cur].state<1)
+	 ++clk_n;
+	 else
+         can_play=-1;
+
+	 update();
+	 //play_sen(cur);
+     auPlayer.play("/dic/error.mp3", function()  {
+         //alert("after play error.mp3");
+
+         if (sens[cur].state < 1)
+
+             playword_sentence();
+         else  if (sens[cur].state == 1)
+ {
+     //alert("imagesx_word ="+imagesx_word[n]);
+    // searchword=imagesx_word[n];
+
+     playWordx(searchword,function() {
+         bserach();
+
+ });
+
+
+ }
+
+     });
+	 //show_state();
+     //update();
+     return false ;
+
+ }
+
+
+
+    rightAnswer();
+    return false ;
+
+
+}
+
+
+
+// getTestPics(8);
+
+var au=new Array(60);
+//for(var i=0;i<au.length;++i)
+ //   au[i]=document.createElement("AUDIO");
+
+
+var playwordn=0;
+
+   var ghightLight1=new HightLight();
+
+function onClkEn(pthis,wd) {
+
+   // _show_hight(1,pthis);
+    ghightLight1.show(pthis);
+    on_click_enlish_word(wd);
+}
+
+function on_clk_hisword(pthis,wd) {
+    ++on_clk_cn_info1;
+    pthis.innerHTML=wd;
+   // _show_hight(1,pthis);
+    ghightLight1.show(pthis);
+
+    wd_input.value=wd;
+    searchword=wd;
+    bserach2();
+
+
+    //wd_input.type="hidden";
+    wd_input.size=1;
+
+
+
+    ++playwordn;
+    playWordSetLast(wd);
+  //  onClkEn(pthis,wd)
+}
+
+function bserach2() {
+    if( divSearch.style.display == "block")
+    {
+        bserach();
+    }
+    else
+        _search();
+
+
+}
+
+    function on_click_enlish_word(wd) {
+
+
+        set_key_word(wd,wd);
+
+
+
+
+
+
+        ++playwordn;
+
+       // playWordSetLast(wd);
+        setLastWord(wd);
+
+        if(check_silence_checked==false) {
+            playWordx(wd,function() {bserach2();});
+        }
+        else
+        {
+            bserach2();
+        }
+
+
+
+    }
+
+
+    function setLastWord(wd) {
+
+        lastword=wd;
+        if(wd==null)
+            wd="";
+        //lastwordE.innerHTML=wd;
+    }
+
+  // var check_silence=document.getElementById("check_silence");
+
+    function playWordSetLast(wd) {
+        setLastWord(wd);
+
+        if(check_silence_checked==false)
+        playWord(wd);
+
+
+    }
+
+
+    function on_clk_keyword(pthis,wd) {
+
+        ++frequency_reapt;
+        if(frequency_reapt==2 && wd!=keyword_save) {
+            update_keyword();
+
+       }
+        //pthis.innerHTML="<span  onclick=\" on_clk_keyword(this,'"+wd+"')\"  >"+wd+"</span>";
+        pthis.innerHTML=wd;
+
+
+
+        ++on_clk_cn_info1;
+        playWordSetLast(wd);
+        bserach2();
+
+
+    }
+
+    function on_wd_ipnut() {
+        ++on_clk_cn_info1;
+        wd_input.size=10;
+        wd_input.value=searchword;
+
+    }
+
+    function  on_lost_wd_input () {
+
+        if(wd_input.size!=10)
+            return;
+        wd_input.size=1;
+        update_keyword();
+        var wd=wd_input.value;
+        playWord(wd);
+
+    }
+
+
+
+    function update_keyword() {
+
+
+    /*
+        var wd2=wd_input.value;
+        var wd="";
+        for(var i=0;i<wd.length;++i)
+        {
+            var ch=wd2.charAt(i);
+            if((ch>='a' && ch<="z")|| (ch>='A' && ch<="Z")|| ch==' ')
+                wd+=ch;
+
+        }
+        */
+
+
+        var wd=wd_input.value;
+        loadWord(wd);
+        searchword=wd;
+
+
+        _upload_stat(sens[cur].path_id, 0, 0, wd,null);
+        ++keyword_save_n;
+        update();
+        frequency.style.backgroundColor="#EDBB99";
+        frequency.innerHTML="<span  onclick=\" on_clk_keyword(this,'"+wd+"')\"  >"+wd+"</span>";
+        sens[cur].hiskeyword=sens[cur].keyword;
+         set_hisword(keyword_save,keyword_save);
+        keyword_save=wd;
+
+        sens[cur].keyword=wd;
+
+
+    }
+
+    var searchword;
+    var frequency_reapt=0;
+    var keyword_save;
+    var keyword_save_n=0;
+
+
+
+
+    function set_key_word(wdDisp,wd) {
+
+        searchword=wd;
+
+
+        //<a href="http://www.youdao.com/w/eng/broken/" target="_blank" id="frequency"></a>
+
+       // var href="http://www.youdao.com/w/eng/"+wd+"/";
+       // frequency.setAttribute("href",href );
+      //  frequency.innerHTML=wdDisp;
+        frequency.innerHTML="<span  onclick=\" on_clk_keyword(this,'"+wd+"')\"  >"+wdDisp+"</span>";
+        //wd_input.value=wd;
+
+        //wd_input.type="hidden";
+       wd_input.size=1;
+
+        frequency_reapt=0;
+        frequency.style.backgroundColor="";
+
+
+
+
+        //   /search/word?w=%20soon
+
+        //  var href="http://www.youdao.com/w/eng/"+wd+"/";
+        //serchPic  .setAttribute("href","/search/word?w=%20"+wd);
+
+
+        if(keyword!=wd) {
+
+           // _upload_stat(sens[cur].path_id, seq, 0, wd);
+            keyword=wd;
+        }
+
+
+
+
+    }
+
+
+
+
+function getPartWord(wd,n) {
+
+    var dwd="";
+    for (var i = 0; i < wd.length; ++i) {
+        if (i <n )
+            dwd += wd.charAt(i);
+        else
+            dwd += '_';
+    }
+
+
+    return dwd;
+
+
+
+}
+
+
+
+
+
+
+//document.getElementById("demo").innerHTML =getsen("She was so sad after her dog died that she couldn't even go to work",1) ;
+
+
+
+//init_players();
+
+//show_test();
+//show_state();
+</script>
+<div id="divSearch">
+<iframe  id="ifr1" name="ifr1"  width="98%" height="3900" >
+    <p>Your browser does not support iframes.</p>
+</iframe>
+</div>
+
+  <script src="/js/dir.js?ver=1.8"> </script>
+
+
+<script type="text/javascript">
+
+
+   // console.log(window.frames['ifr1'].window);
+   // console.dir(document.getElementById("ifr1").contentWindow);
+   var searchframe=document.getElementById("ifr1");
+
+
+   var searchwordLast="";
+
+   function _search() {
+
+       right_img=sens[cur].image_file;
+
+       if(right_img==null || right_img=="")
+           right_img="/img/goback.jpeg";
+     //  if(searchwordLast==searchword)
+      //     return;
+       searchwordLast=searchword;
+
+
+
+
+       var cf=searchframe.contentWindow;
+
+       cf.getWordFormURL();
+
+
+
+   }
+
+   function search(wd) {
+
+       divSearch.style.display = "block";
+       divPicTest.style.display = "none" ;
+
+       _search();
+
+
+
+   }
+
+   function bserach() {
+
+       //var word="hello";
+       ++on_clk_cn_info1;
+
+       search(searchword);
+   }
+   var divSearch=document.getElementById("divSearch");
+   var divPicTest=document.getElementById("divPicTest");
+
+
+
+   function call_back_from_search()
+   {
+
+if(con_right>0)
+       play_go_next();
+
+       hide_Search_page();
+
+   }
+
+
+   function hideSearch() {
+
+
+         //rightAnswer();//
+       call_back_from_search();
+
+
+
+
+   }
+
+   function hide_Search_page() {
+
+
+
+       divSearch.style.display = "none";
+       divPicTest.style.display = "block";
+
+   }
+   hide_Search_page();
+   var par=window.location.search;
+   if(par=="")
+   {
+       par="?vv=345";
+   }
+   searchframe.src ="/etp/list.html"+ par+"&ver=1.14";
+  // alert("last");
+
+
+    function load_lrc(url) {
+        var t=url.lastIndexOf("/");
+
+        document.title = url.substring(t+1);
+
+
+        var para="?mp3="+url;
+       // para='?addNewWord=read'
+
+
+        _loadsens(para);
+
+
+
+    }
+
+
+  // load_lrc("/lrc/NC2/060/60_The_Future.mp3");
+
+
+   function gotoDir(n,isplay) {
+       var fn=dirs[n];
+       if(fn.indexOf("/")<0) {
+          var  path=pwd+fn;
+           open_lrc_file(path,null);
+           return
+       }
+           else
+       return _gotoDir(n,isplay);
+   }
+
+
+
+   function show_dir() {
+
+       dir.style.display="block";
+
+       showDir(pwd);
+   }
+
+
+   function open_lrc_file(path, json) {
+      var r= path.lastIndexOf("/");
+       var path_id=path.substring(0,r)+"/media"+path.substring(r);
+       load_lrc(path_id);
+       dir.style.display="None";
+
+
+
+
+   }
+
+
+  showDir("/lrc/NC2/070/");
+   //showDir("/lrc/NC2/070/77_A_Successful_Operation.mp3");
+
+</script>
+
+
+
+
+  </body>
+</html>

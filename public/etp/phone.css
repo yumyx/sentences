@@ -1,0 +1,96 @@
+
+/** 汉 */
+body,ul,li{margin:0;padding:0;}
+.xttblog{
+    width: 100%;
+    margin-top:0px;
+    margin-left333: auto;
+    margin-right333: auto;
+}
+
+table.img3x3 {
+    table-layout: fixed;
+    width: 100%;
+    height: 420px;
+    font-size:150%;
+}
+
+table.img3x3 tr {width: 320px;
+    height: 140px; }
+
+
+table.img3x3 tr td span img {width: 320px;
+    height: 145px; }
+
+
+.box{margin-left: 5px;margin-top: 5px;list-style-type:none;}
+.box:after{
+    content: ".";
+    display: block;
+    line-height: 0;
+    width:0;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+#descrption
+{
+    width:100%;
+}
+.box li{float:left;line-height: 190px;}
+.box li a,.box li a:visited{
+    display:block;
+    border: 5px solid #ccc;
+    width: 315px;
+    height: 148px;
+    text-align: center;
+    margin-left: -5px;
+    margin-top: -5px;
+    position: relative;
+    z-index: 1;
+}
+.box li a:hover{border-color: #00f;z-index: 2;}
+
+.box li a img {width: 315px;
+    height: 142px; }
+
+
+.none{display:none;}
+
+.hidden {
+    visibility: hidden;
+}
+body {font-size:120%;}
+.hidden2 {
+    background-color: gray;
+    color: gray
+}
+
+.blue {
+    background-color: #CCFFFF;
+}
+
+
+.green {
+    background-color: #ccFFcc
+}
+
+.yellow {
+    background-color: #FFFFcc
+}
+
+.red {
+    background-color: #FFCCFF
+}
+
+
+
+table, th, td {
+    border: 1px solid black;
+}
+
+
+
+

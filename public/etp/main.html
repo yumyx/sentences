@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<style>
+    body {font-size:170%;}
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    #log {font-size: 0.675em;}
+
+</style>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Englisth Througth Pictures</title>
+</head>
+<body>
+
+<style>
+    .box{border-style: solid;border-color: #ff0000; width: 50px; height: 50px; background: green; position: absolute; opacity:0.5;}
+    .newBox{border-style: solid;border-color: #0000ff; width: 50px; height: 50px; background: red; position: absolute; opacity:0.5;}
+    .selBox{border-style: solid;border-color: #ff0000; width: 50px; height: 50px; background: blue; position: absolute; opacity:0.5;}
+    .time_list{  background: green;}
+    .sel_time_list{  background: blue;}
+    .ok{  background: green;}
+    .sel{  background: blue;}
+    .wrong{  background: red;}
+    .none {display:none}
+</style>
+
+</head>
+
+
+
+<div id="voiceBoxes" ></div>
+
+
+
+<input type="text" value=""  size="5" name="" id="lastPage">
+
+<span onclick="nextpage(-1)">&lt;&lt;&lt;</span> <span id="bookpage" ></span>
+<select id="sel" onchange="sel_book(this)">
+    <option value="1">B</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+</select>
+
+<select id="sel" onchange="sel_page(this)">
+    <option value="1">P</option>
+    <option value="1">1</option>
+    <option value="10">10</option>
+    <option value="20">20</option>
+    <option value="30">30</option>
+    <option value="40">40</option>
+    <option value="50">50</option>
+    <option value="60">60</option>
+    <option value="70">70</option>
+    <option value="80">80</option>
+    <option value="90">90</option>
+    <option value="100">100</option>
+    <option value="110">110</option>
+    <option value="120">120</option>
+    <option value="130">130</option>
+    <option value="140">140</option>
+    <option value="150">150</option>
+</select>
+
+<span onclick="nextpage(1)">&gt;&gt;&gt;</span>
+[<span onclick="setMode()" id="readWriteMode">Read</span>]
+<span onclick="continuePlayer()">[con]</span><span onclick="rest_break()">*****</span>
+<span onclick="delete_time(this)">Delete</span>
+<span id="onOffRand" onclick="switch_rand(this)">fix</span>
+<span id="onOffTest" onclick="onNewTest(this)">test</span>
+
+<table style="width:100%">
+    <tr>
+
+        <td><div class="newBox" id="voiceBoxes_new"  onclick="creatNewVoice1()"></div>
+            <img onclick222="replayx()" id="img"  width="890" height="1300" src="book1/p-001.png" />
+        </td>
+        <td style="vertical-align:bottom;" valign="bottom">
+            <table class="none" id="test">
+                <tr><td>100</td></tr>
+                <tr><td>1</td></tr>
+            </table>
+            <span id="breaks" class="none"></span><br>
+
+
+        </td>
+    </tr>
+
+</table>
+
+
+<span id="demo">
+</span>
+
+
+<script>
+    var audio1;
+    var audio2;
+</script>
+
+
+<audio id="audio" controls="controls" ontimeupdatex="onplay(this)" onpausex="audio1.onpaused()"></audio>
+<audio id="audio2" controls="controls" ontimeupdatex="onplay(this)" onpausex="audio2.onpaused()"></audio>
+
+<br>
+
+<pre id="log"> </pre>
+
+<script src="PreLoadPlayer.js?ver=2"></script>
+<script src="etpPlayer.js?ver=17"></script>
+<script src="voicetag.js?ver=16"></script>
+<script src="findProunce.js"></script>
+<script>
+
+    function setCookie(cname,cvalue,exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    var lastpage=document.getElementById("lastPage");
+
+
+     function  checkSearch() {
+         var page = null;
+         var bookstr = null;
+
+         var sr = location.search;
+         if(sr!="") {
+             var i = sr.indexOf("go=");
+             var go = sr.substring(4);
+             var bookpage = go.split(".");
+
+              page = bookpage[1];
+              bookstr = bookpage[0];
+
+
+
+         }
+
+         if (page == null) {
+             page = getCookie("lastPage");
+             if (page == "")
+                 page = "1";
+         }
+
+         if(bookstr==null) {
+             bookstr = getCookie("lastBook");
+             if (bookstr == "")
+                 bookstr = "1";
+         }
+         // lastpage.value=user;
+         book=    parseInt(bookstr);
+
+
+
+         goto_page(page);
+
+
+
+     }
+
+    function checkCookie() {
+
+
+        var page=getCookie("lastPage");
+        if (page == "")
+                page="1";
+
+
+        var bookstr=getCookie("lastBook");
+        if (bookstr== "")
+            bookstr="1";
+       // lastpage.value=user;
+        book=    parseInt(bookstr);
+
+
+
+        goto_page(page);
+
+
+    }
+    function saveLastPage() {
+        if(lastsavepage== page && lastSaveBook==book)
+            return;
+        lastsavepage=page;
+        lastpage.value=page;
+        lastSaveBook=book;
+
+        setCookie("lastPage", page, 300);
+        setCookie("lastBook", book, 300);
+    }
+var lastsavepage=-1;
+ var lastSaveBook=-1;
+    function goto_page(page)
+    {
+
+
+        lastpage.value=page;
+
+       //setCookie("lastpage", page, 300);
+        sel_page(lastpage);
+
+
+    }
+
+
+    //checkCookie()
+    checkSearch();
+
+</script>
+
+
+</body>
+</html>

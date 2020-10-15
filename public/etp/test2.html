@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>JavaScript Arrays</h2>
+
+<p>Avoid using new Array().</p>
+
+<p id="demo"></p>
+
+<script>
+    function getTestPics(target) {
+        //target 1..50
+
+        var max=50;
+
+        var pics = new Array(max);
+        var re =[];
+
+        pics[target-1]=1;
+        re[0]=target;
+
+        var i;
+        for(i=1;i<9;)
+        {
+            var j=Math.floor(Math.random() * max);
+            if(pics[j]==null)
+            {
+                re[i]=j+1;
+                pics[j]=1;
+                ++i;
+            }
+            else
+                continue;
+        }
+
+        var k=Math.floor(Math.random() * 8)+1;
+        re[0]=re[k];
+        re[k]=target;
+
+
+       return re;
+
+       // http://dict.youdao.com/dictvoice?audio=you&type=1
+
+
+    }
+
+
+    // getTestPics(8);
+
+    var au=new Array(20);
+    for(var i=0;i<20;++i)
+        au[i]=document.createElement("AUDIO");
+
+
+    var playwordn=0
+    function playword2(i) {
+        if(i>=au.length)
+            return ;
+        ++playwordn;
+        //alert("playword="+playwordn);
+        //youdao.src="http://dict.youdao.com/dictvoice?audio="+wd+"&type=1";
+        au[i].play();
+
+    }
+
+    function getwd(wd,show,i) {
+
+           var dwd;
+         if(show==1)
+             dwd=wd;
+         else {
+             dwd="";
+             for (var i = 0; i < wd.length; ++i) {
+                 if (i == 0)
+                     dwd += wd.charAt(i);
+                 else
+                     dwd += '_';
+             }
+         }
+
+        var out="<span  onclick=\" playword2("+i+")\"  >"+dwd+"</span>";
+         if(i>=au.length)
+             return ;
+        au[i].src="http://dict.youdao.com/dictvoice?audio="+wd+"&type=1";
+        au[i].load();
+        return out;
+
+    }
+    function getsen(sen,show) {
+        //The police will take the man off to prison.
+        var out ="";
+        var abc=0;
+        var nonabc=0;
+        var wd="";
+        var j=0;
+        for(var i=0;i<=sen.length;++i)
+        {
+            var c=sen.charAt(i);
+            if((c>="a" && c<="z")||(c>="A" && c<="Z")|| c=="'")
+            {
+                if(abc==0)
+                    wd=c;
+                else
+                    wd+=c;
+
+                ++abc;
+                nonabc=0;
+
+            }
+            else
+            {
+                if(abc>0)
+                {
+                    out+=getwd(wd,show,j);
+                    ++j;
+                    wd="";
+
+                }
+               out+=c;
+                ++nonabc;
+                abc=0;
+            }
+        }
+
+       // getwd("hello");
+        return out;
+
+    }
+
+    document.getElementById("demo").innerHTML =getsen("She was so sad after her dog died that she couldn't even go to work",1) ;
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+
+
+<style type="text/css">
+    /** 重置浏览器默认标签样式 */
+    body,ul,li{margin:0;padding:0;}
+    .xttblog{
+        width: 1200px;
+        height: 170px;
+        margin-top:0px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .box{margin-left: 5px;margin-top: 5px;list-style-type:none;}
+    .box:after{
+        content: ".";
+        display: block;
+        line-height: 0;
+        width:0;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+        overflow: hidden;
+    }
+    .box li{float:left;line-height: 230px;}
+    .box li a,.box li a:visited{
+        display:block;
+        border: 5px solid #ccc;
+        width: 380px;
+        height: 230px;
+        text-align: center;
+        margin-left: -5px;
+        margin-top: -5px;
+        position: relative;
+        z-index: 1;
+    }
+    .box li a:hover{border-color: #00f;z-index: 2;}
+
+    .box li a img {width: 380px;
+        height: 230px; }
+
+
+    .none{display:none;}
+
+    .hidden {
+        visibility: hidden;
+    }
+    body {font-size:150%;}
+    .hidden2 {
+        background-color: gray;
+        color: gray
+    }
+
+    .blue {
+        background-color: #CCFFFF;
+    }
+
+
+    .green {
+        background-color: #ccFFcc
+    }
+
+    .yellow {
+        background-color: #FFFFcc
+    }
+
+    .red {
+        background-color: #FFCCFF
+    }
+
+
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+</style>
+
+<table width="1150px" class="green" id="descrption">
+
+    <tr>
+        <td onclick="go_word(0)" width="20%"> <%= @name %>:<span id="state"  class="none"></span><%= @todayReadn %>
+            <a href="/test/David?addNewWord=1" >New</a></td>
+        <td onclick="playx()">
+
+            <span   onclick="onshow_chinese()" ><span id="cn_text" class="hidden2" ></span></span>
+            <a href="http://www.youdao.com/w/eng/broken/" target="_blank" id="frequency"></a>
+
+        </td>
+
+
+
+
+    </tr>
+    <tr>
+        <td>
+            <strong onclick="go_word(-1)" >&lt;&lt;&lt;</strong>
+            <span id="state_cur" onclick="go_word(0)"  ></span>
+            <strong onclick="go_word(1)" >&gt;&gt;&gt;</strong>
+        </td><td  onclick="enplayx()" >
+        <span   onclick="onshow_enlish()" ></span><span id="en_text" class="hidden2" ></span>
+
+
+    </td>
+
+
+    </tr>
+</table>
+
+<audio autoplay333="autoplay" controls2="controls" id="player0" ></audio>
+<audio autoplay333="autoplay" controls2="controls" id="player1" ></audio>
+<pre class=none id="server"></pre>
+
+
+<div class="xttblog">
+    <ul class="box">
+        <li><a href="" onclick="return clk(0);" title="1"><img id="img0" /></a></li>
+        <li><a href="" onclick="return clk(1);" title="2"><img id="img1" /></a></li>
+        <li><a href="" onclick="return clk(2);" title="3"><img id="img2"/></a></li>
+        <li><a href="#" onclick="return clk(3);" title="4"><img id="img3" src="fh.jpg"/></a></li>
+        <li><a href="#" onclick="return clk(4);"  title="5"><img id="img4" src="tb.jpg"/></a></li>
+        <li><a href="#" onclick="return clk(5);" title="6"><img id="img5" src="tb.jpg"/></a></li>
+        <li><a href="#" onclick="return clk(6);" title="7"><img id="img6" src="tb.jpg"/></a></li>
+        <li><a href="#" onclick="return clk(7);" title="8"><img id="img7" src="tb.jpg"/></a></li>
+        <li><a href="#" onclick="return clk(8);" title="9"><img id="img8" src="tb.jpg"/></a></li>
+    </ul>
+</div>
+
+<script>
+    // </td><td onclick="playx()">
+    //<span   onclick="onshow_enlish()" ><span id="en_text" class="hidden2" ></span></span></span>
+
+
+    var server=document.getElementById("server");
+    var state_disp=document.getElementById("state");
+    var state_cur=document.getElementById("state_cur");
+    var en_text=document.getElementById("en_text");
+    var frequency=document.getElementById("frequency");
+    var cn_text=document.getElementById("cn_text");
+    var descrption=document.getElementById("descrption");
+    var player=[document.getElementById("player0"),document.getElementById("player1")];
+
+    //var player = document.createElement("AUDIO");
+    /**
+     #<Record:0x00007ff487c8ff18
+     id: 9326,
+     path_id: "/24/1/55",
+     state: 0,
+     readn: 0,
+     wrongn: 0,
+     last: nil,
+     created_at: Fri, 27 Apr 2018 10:37:56 UTC +00:00,
+     updated_at: Mon, 30 Apr 2018 22:19:12 UTC +00:00,
+     usename: "Jimmy",
+     read_no: 0,
+     turn: 1,
+     random: 638,
+     fav: nil>
+
+     *
+     */
+
+/*
+    var todayReadn= <%= @todayReadn %> ;
+
+    <%= @sens %>
+
+    var sens=[	{cur: 1}
+    <% i=0 %>
+        <% @sentences.each do |s| %>
+
+        ,{
+        en_text: "<%=  s.en_text.gsub(/[\r\n"]/, " ") %>" ,
+    path_id: "<%=  s.path_id %>" ,
+        audio: "<%=  s.audio %>" ,
+        image_file: "<%=  s.image_file %>" ,
+        cn_text: "<%=  s.cn_text.gsub(/[\r\n"]/, " ") %>" ,
+    frequency: <%= s.frequency %> ,
+        hardword:	"<%= s.hardword %>" ,
+        state: <%= s.state %>,
+        readn: <%= s.read_no %>,
+    <% # puts "i={i}"
+        #pp @records[i];
+    i+=1 %>
+    }
+    <% end %>
+    ]
+
+*/
+
+    function  mixSen(arry) {
+
+        var map=new Array;
+
+        for(var i=1;i<51;++i) {
+
+
+            var j = Math.floor(Math.random() * 50) + 1;
+
+            var t=arry[i];
+            arry[i]=arry[j];
+            arry[j]=t;
+            map[i]=j;
+            map[j]=i;
+
+        }
+
+
+        return map;
+
+    }
+    var mixmap=mixSen(sens);
+
+
+    function  getMixMap() {
+
+
+        var arry=new Array;
+        arry[0]=0;
+
+
+
+
+
+        for(var i=1;i<51;++i) {
+
+
+            var j = Math.floor(Math.random() * 50) + 1;
+
+
+            arry[i]=j;
+            arry[j]=i;
+
+        }
+
+        return arry;
+
+
+    }
+
+    var images=[
+        document.getElementById("img0"),document.getElementById("img1"),document.getElementById("img2"),document.getElementById("img3"),
+        document.getElementById("img4"),document.getElementById("img5"),document.getElementById("img6"),document.getElementById("img7"),
+        document.getElementById("img8")];
+
+    var play_end_do=0;
+    function play_submit()
+    {
+        if(play_end_do==0)
+            return;
+
+        play_end_do=0;
+
+        show_test();
+
+
+
+    }
+
+
+    function getTestPics(target) {
+        //target 1..50
+
+        var ri=mixmap[target];
+
+        var max=50;
+        var i;
+
+        var pics = new Array(max);
+        var re =[];
+
+        pics[target-1]=1;
+        /*
+        var s=target-5;
+        if(s<0)
+            s=0;
+        var e=target+5;
+        if(e>max)
+            e=max;
+        for(i=e;i<e;++i)
+            pics[i]=1;
+    */
+        if(target>1)
+            pics[target-2]=1;
+
+        re[0]=target;
+
+
+        for(i=1;i<9;)
+        {
+            var j=Math.floor(Math.random() * max);
+
+            var rj=mixmap[j];
+
+            if(pics[j]==null && ((rj>ri+5) || (rj<ri-5) ))
+            {
+                re[i]=j+1;
+                pics[j]=1;
+                ++i;
+            }
+
+        }
+
+        var k=Math.floor(Math.random() * 8)+1;
+        re[0]=re[k];
+        re[k]=target;
+
+
+        re[k]=target;
+
+
+        return re;
+
+
+    }
+
+
+    function init()
+    {
+        //var  i=sens[0].cur;
+        //alert("init()")
+
+        var i=1;
+        for(i=1;i<sens.length;++i)
+        {
+
+
+            var n=sens[i].path_id.lastIndexOf('/');
+            var path=sens[i].path_id.slice(0,n+1);
+            sens[i].audio=path+sens[i].audio;
+            sens[i].image_file=path+sens[i].image_file;
+        }
+
+
+
+
+
+
+        player[0].onended=play_submit;
+        player[1].onended=play_submit;
+
+        //var fn=path+aac;
+        //player.src=fn;
+        //player.play();
+        //img.src=path+imgfn;
+    }
+
+    init();
+    var cur=0;
+
+    function setimg(pic,senno)
+    {
+        images[pic].src=sens[senno].image_file;
+    }
+
+    var newpos=[0,1,2,3,4,5,6,7,8];
+
+    var loadn=[-1,-1];
+    var loadnext=-1;
+
+
+
+
+
+    var clk_n=0;
+    var state=0;
+    var last_state=0;
+    var turn=1;
+    var play_n=0
+    var  show_en=0;
+
+    var playwordn2=0;
+    function enplayx ()
+    {
+        //alert("playwordn2="+playwordn2);
+        if(playwordn2!=playwordn)
+        {
+
+            playwordn2=playwordn;
+            return;
+        }
+        playx();
+    }
+
+    var pre_entext=new Array();
+
+    function find_seni(s1,tagi) {
+
+        for(var i=0;i<3;++i) {
+            if( pre_entext[i].seni != s1)
+                continue;
+
+
+            if(i==tagi)
+                return i;
+
+
+            var t =pre_entext[i];
+            pre_entext[i]= pre_entext[tagi]
+            pre_entext[tagi]=t;
+
+
+            return i;
+
+        }
+        if(tagi==0)
+            return -1;
+
+        pre_entext[tagi].get_entxt(s1,0);
+        return tagi;
+
+    }
+
+    function get_cur_context() {
+
+        var s1 = cur - 1;
+        var s2 = cur;
+        var s3 = cur + 1;
+
+        find_seni(s2, 1)
+
+
+        if (s1 >= 1) {
+            find_seni(s1, 0)
+
+        }
+
+        if (s3 < sens.length) {
+            find_seni(s3, 2)
+        }
+
+    }
+
+    function get_cur_entxt(show) {
+
+        get_cur_context();
+        return pre_entext[1].get_entxt(cur,show);
+
+
+
+    }
+
+    function play_sen(n)
+    {
+        get_cur_context();
+
+        var p= pre_entext[1].player;
+        if(p.currentTime!=0)
+            p.currentTime=0;
+        p.play();
+    }
+
+    function get_entxt(seni,show) {
+
+
+        if( this.seni!=seni) {
+
+            this.seni = seni;
+
+
+            this.player.src=sens[seni].audio;
+            this.player.load();
+
+            this.audioi = audioi;
+            this.en_show_text = getsen(sens[seni].en_text, 1);
+
+            audioi = this.audioi;
+            this.en_hide_text = getsen(sens[seni].en_text, 0);
+
+        }
+
+        if(show==1)
+            return  this.en_show_text;
+        else
+            return this.en_hide_text;
+
+
+    }
+
+
+    function pre_entext_init() {
+
+        this.seni=-1;
+        this.en_show_text=null;
+        this.en_hide_text=null;
+        this.get_entxt=get_entxt;
+        this.player=document.createElement("AUDIO");
+        this.player.onended=play_submit;
+
+    }
+
+
+    pre_entext[0]=new Object();
+    pre_entext[0].init=pre_entext_init;
+    pre_entext[0].init();
+
+    pre_entext[1]=new Object();
+    pre_entext[1].init=pre_entext_init;
+    pre_entext[1].init();
+
+    pre_entext[2]=new Object();
+    pre_entext[2].init=pre_entext_init;
+    pre_entext[2].init();
+
+
+
+    function show_entext(show) {
+
+        //en_text.innerHTML=getsen(sens[cur].en_text,show)
+        en_text.innerHTML=get_cur_entxt(show);
+    }
+
+    function onshow_enlish()
+    {
+        //++show_en;
+
+
+
+        ++clk_n;
+        frequency.innerHTML=sens[cur].frequency+"["+sens[cur].hardword+"]";
+        en_text.className="";
+        show_entext(1);
+
+        update();
+        //playx();
+        //cn_text.className="hidden2";
+    }
+
+    function onshow_chinese()
+    {
+        //++show_en;
+        //++clk_n;
+        onshow_enlish();
+
+        update();
+        cn_text.className="";
+
+        playx();
+    }
+
+
+    function playx()
+    {
+        ++play_n;
+        play_sen(cur);
+        update();
+    }
+
+
+    function show_state()
+    {
+        state_disp.innerHTML=""+turn+":"+state+"/"+last_state+" "+clk_n;
+        state_cur.innerHTML=""+cur+"/"+sens.length+":"+sens[cur].state+"/"+sens[cur].readn;
+        var c="";
+        if(state==2)
+            c="green";
+        else if (state==1)
+        {
+            c="blue";
+            if(play_n>1)
+                c="yellow";
+        }
+        else
+            c="red";
+
+
+        descrption.className=c;
+
+    }
+
+    function show_test()
+    {
+        go_word(1);
+    }
+
+    function go_word(step)
+    {
+        //alert("show_test");
+        cur+=step;
+        if(cur<1)
+            cur=1;
+
+        if(cur>=sens.length)
+        {
+
+            alert("Done!!!!! New turn !!!!");
+            window.open("/test/David");
+            //location.reload();
+            cur=1;
+            ++turn;
+
+        }
+        /*
+        var i;
+        newpos[0]=cur;
+        for( i=1;i<9;++i)
+        {
+        newpos[i]=((cur+i)%(sens.length-1))+1;
+        }
+
+        for( i=0;i<9;++i)
+        {
+        var m=Math.floor(Math.random() * 9);
+        var n=Math.floor(Math.random() * 9);
+        var t=newpos[m];
+        newpos[m]=newpos[n];
+        newpos[n]=t;
+
+        }
+        */
+        newpos=getTestPics(cur);
+
+        for( i=0;i<9;++i)
+        {
+            setimg(i,newpos[i]);
+        }
+
+        play_sen(cur);
+
+        en_text.className="";
+        cn_text.className="hidden2";
+        cn_text.innerHTML=sens[cur].cn_text;
+        //en_text.innerHTML=getsen(sens[cur].en_text,0);
+        show_entext(0);
+        frequency.innerHTML=sens[cur].frequency+"["+getPartWord(sens[cur].hardword)+"]";
+        clk_n=0;
+        state=1;
+        last_state=2;
+        play_n=0;
+
+        update();
+
+
+    }
+
+
+
+    var seq=0;
+
+
+    function update() {
+        last_state=state;
+        state=0;
+        if(clk_n<=0 )
+        {
+            if(play_n<=0)
+                state=2;
+            else if(play_n<=2)
+                state=1;
+            else
+                state=0;
+        }
+        else
+        {
+            state=-1;
+        }
+        show_state();
+
+        //state=(clk_n>0?0:1)*(play_n>2?0:1);
+    }
+    function upload_stat(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                server.innerHTML +="rx:"+this.responseText;
+            }
+        };
+        ++seq;
+        var url="/test/update?path_id="+sens[cur].path_id+"&seq="+seq+"&dstate="+state;
+        server.innerHTML ="tx:"+url+"\n";
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    }
+
+
+
+    function clk(n)
+    {
+        //alert("images[n].src="+images[n].src)
+
+
+        if(newpos[n]!=cur)
+        {
+            images[n].src="";
+            ++clk_n;
+            update();
+            play_sen(cur);
+            show_state();
+
+        }
+        else
+        {
+            en_text.className="";
+            //en_text.innerHTML=getsen(sens[cur].en_text,1)
+            show_entext(1);
+            frequency.innerHTML=sens[cur].frequency+"["+sens[cur].hardword+"]";
+
+            cn_text.className="";
+            update();
+            upload_stat();
+            play_end_do=1;
+            play_sen(cur);
+
+
+            //show_test();
+        }
+
+
+
+
+        return false ;
+
+
+
+    }
+
+
+
+    // getTestPics(8);
+
+    var au=new Array(60);
+    for(var i=0;i<au.length;++i)
+        au[i]=document.createElement("AUDIO");
+
+
+    var playwordn=0
+    function playword2(i,wd) {
+        //<a href="http://www.youdao.com/w/eng/broken/" target="_blank" id="frequency"></a>
+
+        var href="http://www.youdao.com/w/eng/"+wd+"/";
+        frequency.setAttribute("href",href );
+        frequency.innerHTML=wd;
+        if(i>=au.length)
+            return ;
+        ++playwordn;
+        //alert("playword="+playwordn);
+        //youdao.src="http://dict.youdao.com/dictvoice?audio="+wd+"&type=1";
+        au[i].play();
+
+    }
+
+    function getPartWord(wd) {
+
+        var dwd="";
+        for (var i = 0; i < wd.length; ++i) {
+            if (i <2 )
+                dwd += wd.charAt(i);
+            else
+                dwd += '_';
+        }
+
+
+        return dwd;
+
+
+
+    }
+
+    var audioi=0;
+
+    function getwd(wd,show,aui) {
+
+        var dwd;
+        if(show==1)
+            dwd=wd;
+        else {
+            dwd=getPartWord(wd);
+
+        }
+        aui=audioi%au.length;
+        ++audioi;
+
+        var out="<span  onclick=\" playword2("+aui+",'"+wd+"')\"  >"+dwd+"</span>";
+        if(show==1)//already don by show==0;
+            return out;
+
+        if(aui>=au.length)
+            return out;
+        au[aui].src="http://dict.youdao.com/dictvoice?audio="+wd+"&type=1";
+        au[aui].load();
+        return out;
+
+    }
+    function getsen(sen,show) {
+        //The police will take the man off to prison.
+        var out ="";
+        var abc=0;
+        var nonabc=0;
+        var wd="";
+        var jj=0;
+        for(var i=0;i<=sen.length;++i)
+        {
+            var c=sen.charAt(i);
+            if((c>="a" && c<="z")||(c>="A" && c<="Z")|| c=="'")
+            {
+                if(abc==0)
+                    wd=c;
+                else
+                    wd+=c;
+
+                ++abc;
+                nonabc=0;
+
+            }
+            else
+            {
+                if(abc>0)
+                {
+                    out+=getwd(wd,show);
+                    ++jj;
+                    wd="";
+
+                }
+                out+=c;
+                ++nonabc;
+                abc=0;
+            }
+        }
+
+        // getwd("hello");
+        return out;
+
+    }
+
+    //document.getElementById("demo").innerHTML =getsen("She was so sad after her dog died that she couldn't even go to work",1) ;
+
+
+
+
+
+    show_test();
+    show_state();
+</script>
+
+
+
+</html>
